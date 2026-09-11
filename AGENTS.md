@@ -18,12 +18,25 @@
 2. **页头"译文"互链指向官方原站**：文章头部 en/ru 译文链接渲染为 `https://en.algorithmica.org/…`、`https://ru.algorithmica.org/…`（模板 `header.html` 已实现，勿改回站内地址）；zh 译文链接指向本站。
 3. **译文正文链接一律站内**：章节互链、图片引用等使用本站路径，不外链官方站。写法见下"路径写法"。
 
+站点部署在 **GitHub Pages 项目站**，地址是 `https://dp9u0.github.io/algorithmica/`——所有 URL 必须带 `/algorithmica` 子路径前缀。
+
 ### 路径写法（render hook 自动处理前缀）
 
-- 根绝对路径（`/hpc/simd`）= 当前语言的树：中文页渲染为 `/hpc/simd`，英文页渲染为 `/en/hpc/simd`
+- 根绝对路径（`/hpc/simd`）= 当前语言的树：中文页渲染为 `/algorithmica/hpc/simd`，英文页渲染为 `/algorithmica/en/hpc/simd`
 - 跨语言引用显式写前缀：中文页复用英文图片写 `/en/hpc/…/img/…`（`/en/`、`/ru/`、`/zh/` 开头不改写）
-- `static/` 已有资源（如 `/img/…`）不加前缀
+- `static/` 已有资源（如 `/img/…`）不加语言前缀，但仍会带 `/algorithmica` 子路径
 - 未翻译目标用相对路径（`../bandwidth`），翻译完成自动生效
+
+### ⚠️ 子路径陷阱（改模板/内容时必读）
+
+`hugo serve` 从站点根提供服务，**会掩盖子路径 bug**——链接在本地正常、上线后 404。改任何链接/资源路径后必须跑 `check_urls.py`（已并入检查脚本）。
+
+两条硬规则：
+
+1. **模板里不要写裸的根绝对路径**（`href='/foo'`、`src='/icons/x.svg'`）。用 `{{ "foo" | relURL }}`。
+2. **`relURL` 对以 `/` 开头的输入原样返回**（不加前缀）。所以参数必须**不带前导斜杠**：`{{ "icons/x.svg" | relURL }}` 对，`{{ "/icons/x.svg" | relURL }}` 错。
+
+历史教训：blog 侧边栏标题、静态资源、render hook 输出的语言前缀路径都曾因此漏掉子路径，导致图标缺失、图片不显示、左上角链接跳错站。
 
 ### 内容规则
 

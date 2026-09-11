@@ -166,6 +166,18 @@ def deadlinks():
     ok('%d expected untranslated-page links (auto-whitelisted), %d real dead'
        % (len(expected), len(real)))
 
+def url_prefixes():
+    """Every internal URL must carry the baseURL subpath (GitHub Pages project site)."""
+    print('[6] baseURL prefix coverage')
+    r = subprocess.run([sys.executable,
+                        os.path.join(os.path.dirname(os.path.abspath(__file__)), 'check_urls.py')],
+                       capture_output=True, text=True)
+    out = (r.stdout + r.stderr).strip()
+    for line in out.splitlines():
+        print('  ' + line)
+    if r.returncode != 0:
+        fail('internal URLs missing the baseURL prefix (see above)')
+
 def main():
     zh_dir = sys.argv[1] if len(sys.argv) > 1 else None
     if not zh_dir or not os.path.isdir(zh_dir):
@@ -174,6 +186,7 @@ def main():
     print('[4] chapter checks')
     check_chapter(zh_dir)
     deadlinks()
+    url_prefixes()
     remnants(zh_dir)
     print('\n%s' % ('FAIL (%d)' % len(FAIL) if FAIL else 'ALL CHECKS PASSED'))
     sys.exit(1 if FAIL else 0)
