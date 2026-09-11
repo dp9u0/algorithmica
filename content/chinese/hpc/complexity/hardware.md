@@ -22,7 +22,7 @@ ignoreIndexing: true
 
 ……然后再花上几个月做掉剩下的 40–50 道工序，一枚 CPU 才算完成。
 
-![](/en/hpc/img/lithography.png)
+![](/en/hpc/complexity/img/lithography.png)
 
 现在来看"用光子轰击"这一步。我们可以用一组透镜把图案投影到小得多的区域上，等效于制造出一个具备全部所需特性的微型电路。靠这个办法，1970 年代的光学就能在指甲盖大小的面积上塞进几千个晶体管，这给微芯片带来了宏观世界计算机所不具备的几个关键优势：
 
@@ -52,7 +52,7 @@ ignoreIndexing: true
 
 在整个计算史的大部分时间里，光学微缩是性能提升背后的主引擎。英特尔前 CEO 戈登·摩尔在 1975 年预测：微处理器中的晶体管数量每两年翻一番。这个预测一直成立到今天，被称为*摩尔定律*。
 
-![](/en/hpc/img/dennard.ppm)
+![](/en/hpc/complexity/img/dennard.ppm)
 
 登纳德缩放和摩尔定律都不是真正的物理定律，只是精明的工程师们做出的经验观察。它们注定会在某个时刻因为根本性的物理限制而停下来，最终的极限是硅原子的尺寸。事实上，登纳德缩放已经停了——因为功耗问题。
 
@@ -84,7 +84,7 @@ Leakage: interfering magnetic fields make electrons move in the directions they 
 
 其结果是体系结构越来越复杂，每个周期能做几十、几百乃至几千件不同的事。
 
-![AMD Zen CPU 核心的裸片照片（约 14 亿个晶体管）](/en/hpc/img/die-shot.jpg)
+![AMD Zen CPU 核心的裸片照片（约 14 亿个晶体管）](/en/hpc/complexity/img/die-shot.jpg)
 
 下面这些利用更多可用晶体管的核心思路，正在推动近年来的计算机设计：
 

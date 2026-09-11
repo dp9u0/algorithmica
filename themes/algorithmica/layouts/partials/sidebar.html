@@ -4,7 +4,7 @@
   <div class='title'>
     <a href='/'>{{ .Site.Title }}</a>
     {{ range .Site.Menus.main }}
-      {{ if $currentPage.HasMenuCurrent "main" . }}
+      {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
         {{ $currentDivision = . }}
         <span class='slash'>/</span>
         <a href='{{.Page.RelPermalink}}' class='divisionAbbr'
