@@ -50,6 +50,8 @@ languages:
     params:
       contentDir: content/chinese
 params:
+  author:
+    name: "Sergey Slotin"   # 原书作者；幻灯片主题读取 .Site.Params.author.name（覆盖 old .Site.Author）
   repo: "https://github.com/dp9u0/algorithmica"
   reveal_hugo:
     #theme: white

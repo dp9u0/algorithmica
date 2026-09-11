@@ -157,6 +157,10 @@ def deadlinks():
                 en_t = os.path.join(base, 'en', u.lstrip('/'))
                 if os.path.isfile(os.path.join(en_t, 'index.html')) or os.path.isfile(en_t):
                     expected.add(u); continue
+                # reveal.js ships runtime assets referenced from its own notes/print
+                # pages; they are not part of our content and resolve at the server root.
+                if u.startswith(('/socket.io/', '/plugin/', '/reveal-js/')):
+                    expected.add(u); continue
                 real.setdefault(u, []).append(os.path.relpath(p, base))
     for u in sorted(real): fail('dead link %s <- %s' % (u, real[u][0]))
     ok('%d expected untranslated-page links (auto-whitelisted), %d real dead'
