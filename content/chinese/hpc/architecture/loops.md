@@ -82,6 +82,8 @@ loop:
 
 这段代码对人来说更难读，但重复部分少了一条指令，而这一条可能切实影响性能。
 
+> **译者注**：在 Apple Silicon（Arm64）上实测，`clang -O2` 已对最朴素的求和循环自动完成了本节全部技巧：每轮展开 16 个元素、用 4 个独立向量累加器打破累加依赖链（`add.4s`），并用 `subs` + `b.ne` 实现"算术指令顺带置标志位"——`subs`（减法并置标志）是 Arm 的常规融合指令，文中的绕路写法在 Arm 上是默认形态。顺带的经验：手工展开反而可能限制编译器发挥（4 个标量累加器不如编译器自选的 4 个向量累加器）——先看汇编再决定是否手工优化。复现代码见 [code/architecture/loops.c](https://github.com/dp9u0/algorithmica/blob/master/code/architecture/loops.c)。
+
 <!--
 
 ### A More Complex Example
