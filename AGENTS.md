@@ -29,7 +29,28 @@
 - front matter 只译 `title`、`menuTitle`、`part`（三者都会展示给读者：页面标题、侧边栏分册缩写、侧边栏部分名）；`weight`、`authors`、`prerequisites`、`aliases` 等保持原样
 - 代码块、`$…$` / `$$…$$` 公式、shortcode、TikZ 块**原样保留**，代码注释可不译
 - 人名、术语首次出现时可括注原文，如"缓存行（cache line）"
-- 语气忠实原文（原作者第一人称表述保持第一人称，不改为译者口吻）；译者的补充说明用引用块（`>`）并标明"译者注"
+
+### 语义分级（硬约束）
+
+- **开场页**（`content/chinese/_index.md`、`content/chinese/hpc/_index.md`）是译者导航页，可改编：讲清本站定位、各方链接、翻译进展
+- **正式章节必须忠实原文，不改写**：作者的第一人称、玩笑、行文节奏、举例全部保留；宁可直译得不优雅，不擅自"改进"；数字、倍数、结论逐一对照
+
+### 译者注
+
+仅两类情况加注，克制使用；格式为紧跟相关段落的引用块 `> **译者注**：…`：
+
+1. 原文内容对本翻译站语境不适用（作者请求资助、"本书今夏发布"等以原书身份的表述）
+2. 原文疑似理论/事实错误——**不修改原文**，加注指出
+
+另一来源是用户审读时的讨论沉淀：用户认为值得保留的讨论，按上述格式插入合适位置。
+
+### Git
+
+- commit message 用**英文**；单章一个 commit，如 `Translate chapter 2 (Computer Architecture): 11 articles`
+
+### 翻译流程
+
+使用 skill：`/translate-chapter [<chapter-dir>]`（翻译+检查+自查+交审读）、`/translate-chapter finish`（用户确认后更新进展并提交）。机械检查脚本：`.claude/skills/translate-chapter/scripts/check_translation.py`。
 
 ## 署名
 
