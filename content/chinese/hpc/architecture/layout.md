@@ -28,7 +28,7 @@ Loop Stream Detector (LSD)
 
 -->
 
-### 代码对齐
+### 代码对齐 {#code-alignment}
 
 其他条件相同时，编译器通常偏好机器码更短的指令：这样一块 32B 取指块能装下更多指令，也缩小二进制体积。但有时反过来才更好，原因正是取指块必须对齐。
 
@@ -59,7 +59,7 @@ Loop Stream Detector (LSD)
 
 另一个方面是，把频繁使用的指令序列放进相同的[缓存行](/hpc/cpu-cache/cache-lines)和[内存页](/hpc/cpu-cache/paging)能改善[缓存局部性](/hpc/external-memory/locality)。要提高指令缓存的利用率，应当让热代码挨着热代码、冷代码挨着冷代码，并尽量移除死（未使用的）代码。想深入这个方向的话，可以看看 Facebook 的[二进制优化与布局工具](https://engineering.fb.com/2018/06/19/data-infrastructure/accelerate-large-scale-applications-with-bolt/)（BOLT），它最近被[合并](https://github.com/llvm/llvm-project/commit/4c106cfdf7cf7eec861ad3983a3dd9a9e8f3a8ae)进了 LLVM。
 
-### 不对称的分支
+### 不对称的分支 {#unequal-branches}
 
 假设出于某种原因，你需要一个计算整数区间长度的辅助函数。它接受两个参数 $x$ 和 $y$，但为了方便，它对应的既可以是 $[x, y]$ 也可以是 $[y, x]$——取决于哪个非空。用朴素的 C 你大概会这么写：
 
