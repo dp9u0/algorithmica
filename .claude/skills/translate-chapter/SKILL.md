@@ -90,6 +90,6 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
    - 检查脚本的误报/漏报（如新专有名词触发残留扫描）→ 调白名单或加检查
    - 反复出现的术语/措辞修正 → 写进 AGENTS.md 或建术语表
    - 流程本身的别扭之处 → 改 SKILL.md
-   把 `FEEDBACK.md` 中已采纳的条目提升到对应文件后**从收件箱删除**
+   把 `ISSUES.md` 中由本章提升的 📏 条目移入"已解决"并记录去处
 5. git 提交（**commit message 用英文**），单章一个 commit，如：`Translate chapter 9 (RAM & CPU Caches): 12 articles`；规则/脚本的修订可并入同一 commit 或单独一个
 6. `STATUS.md` 该章改为 ✅ 已完成，报告本章篇数与下一章预告
