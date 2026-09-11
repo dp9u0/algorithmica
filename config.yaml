@@ -1,4 +1,5 @@
-baseURL: "https://ru.algorithmica.org/"
+# TODO: replace with your final domain (e.g. Netlify subdomain or custom domain)
+baseURL: "https://algorithmica-zh.netlify.app/"
 theme:
 - algorithmica
 - reveal-hugo
@@ -22,25 +23,36 @@ markup:
     footnote: false  # katex conflict
     renderer:
       unsafe: true
-defaultContentLanguage: en
+defaultContentLanguage: zh
 sectionPagesMenu: main
 languages:
   en:
     title: Algorithmica
-    baseURL: https://en.algorithmica.org
     contentDir: content/english
-    languageName: English
-    languageCode: "en-us"
+    label: English
+    locale: "en-us"
     weight: 1
+    params:
+      contentDir: content/english
   ru:
     title: Алгоритмика
-    baseURL: https://ru.algorithmica.org
     contentDir: content/russian
-    languageName: Русский
-    languageCode: "ru-ru"
+    label: Русский
+    locale: "ru-ru"
     weight: 2
+    params:
+      contentDir: content/russian
+  zh:
+    title: Algorithmica
+    contentDir: content/chinese
+    label: 中文
+    locale: "zh-cn"
+    weight: 3
+    params:
+      contentDir: content/chinese
 params:
-  repo: "https://github.com/algorithmica-org/algorithmica"
+  repo: "https://github.com/dp9u0/algorithmica"
+  repoPath: "dp9u0/algorithmica"
   reveal_hugo:
     #theme: white
     slide_number: true

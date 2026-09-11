@@ -1,4 +1,10 @@
+{{- /* Same language-prefix rule as render-link.html: bare root-absolute image paths belong
+       to the current language's tree; use "/en/..." to reference another language's assets. */ -}}
+{{- $dest := .Destination -}}
+{{- if and (strings.HasPrefix $dest "/") (not (strings.HasPrefix $dest "//")) (not (or (strings.HasPrefix $dest "/en/") (strings.HasPrefix $dest "/ru/") (strings.HasPrefix $dest "/zh/"))) (not (fileExists (printf "static%s" $dest))) -}}
+  {{- $dest = printf "%s%s" .Page.Site.LanguagePrefix $dest -}}
+{{- end -}}
 <figure>
-  <img src="{{ .Destination | safeURL }}">
+  <img src="{{ $dest | safeURL }}">
   <figcaption>{{ .Text }}</figcaption>
 </figure>

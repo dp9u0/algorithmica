@@ -46,7 +46,14 @@
         <div>
           <span>{{ T "translations" }}</span>
           {{ range .Translations }}
-            <span><a href="{{ .Permalink }}">{{ .Lang }}: {{ .Title }}</a></span>
+            {{- /* en/ru 译本链接指向官方原站；zh 译本指向本站 */ -}}
+            {{- $href := .Permalink -}}
+            {{- if eq .Lang "en" -}}
+              {{- $href = printf "https://en.algorithmica.org%s" (strings.TrimPrefix "/en" .RelPermalink) -}}
+            {{- else if eq .Lang "ru" -}}
+              {{- $href = printf "https://ru.algorithmica.org%s" (strings.TrimPrefix "/ru" .RelPermalink) -}}
+            {{- end -}}
+            <span><a href="{{ $href }}">{{ .Lang }}: {{ .Title }}</a></span>
           {{ end }}
         </div>
       {{- end -}}

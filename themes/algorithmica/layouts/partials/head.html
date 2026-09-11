@@ -13,6 +13,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
   <script src="/scripts/lunr.stemmer.support.min.js"></script>
   <script src="/scripts/lunr.ru.min.js"></script>
+  <script src="/scripts/lunr.zh.min.js"></script>
   <script src="/scripts/lunr.multi.min.js"></script>
 
   {{ $dark := resources.Get "dark.sass" | toCSS | minify | fingerprint }}
@@ -52,10 +53,10 @@
 
       if (!index) {
         console.log("Fetching index")
-        const response = await fetch('/searchindex.json')
+        const response = await fetch('{{ .Site.LanguagePrefix }}/searchindex.json')
         const pages = await response.json()
         index = lunr(function() {
-          this.use(lunr.multiLanguage('en', 'ru'))
+          this.use(lunr.multiLanguage('en', 'ru', 'zh'))
           this.field('title', {
             boost: 5
           })
