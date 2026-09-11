@@ -10,7 +10,7 @@ ignoreIndexing: true
 
 [^size]: 实际 CPU 的尺寸大约在厘米量级，这是为了功耗管理、散热，以及能把它插上主板而不骂骂咧咧。
 
-### 微芯片是怎样造出来的
+### 微芯片是怎样造出来的 {#how-microchips-are-made}
 
 微芯片是用一种叫[光刻](https://en.wikipedia.org/wiki/Photolithography)的工艺"印"在晶硅片上的，大致包括：
 
@@ -32,7 +32,7 @@ ignoreIndexing: true
 
 除了这些立竿见影的好处，光刻还给出了一条清晰的性能提升路径：只要把透镜做得更强大，就能以相对小的代价造出更小但功能等价的器件。
 
-### 登纳德缩放
+### 登纳德缩放 {#dennard-scaling}
 
 想想把微芯片按比例缩小会发生什么。更小的电路按比例需要更少的材料，更小的晶体管翻转得更快（芯片里所有其他物理过程也随之加快），于是可以降低电压、提高时钟频率。
 
@@ -76,7 +76,7 @@ Leakage: interfering magnetic fields make electrons move in the directions they 
 
 -->
 
-### 现代计算
+### 现代计算 {#modern-computing}
 
 登纳德缩放已经终结，但摩尔定律还没死。
 

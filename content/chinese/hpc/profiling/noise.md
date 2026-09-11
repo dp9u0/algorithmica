@@ -8,7 +8,7 @@ draft: true
 
 这类情形通常并非出自作者的造假行为；他们对"更快"有着不同的定义，而事实上，只定义并使用单一的性能指标往往本身就是很有问题的。
 
-### 测对东西
+### 测对东西 {#measuring-the-right-thing}
 
 有很多因素会给基准测试引入偏差。
 
@@ -118,7 +118,7 @@ for (int i = 0; i < N; i++)
 
 对于只写数据的算法，可以用 `__sync_synchronize()` 内建函数加一道内存栅栏，防止编译器把更新累积起来。
 
-### 降低噪声
+### 降低噪声 {#reducing-noise}
 
 <!--
 
@@ -140,7 +140,7 @@ https://github.com/sosy-lab/benchexec
 
 在笔记本上跑一个不到一秒的程序，性能出现 ±5% 的波动是完全正常的。所以，如果你想决定要不要保留一个潜在的 +1% 改进，就把它跑到统计显著为止——可以通过计算方差和 p 值来判断。
 
-### 延伸阅读
+### 延伸阅读 {#further-reading}
 
 有兴趣的读者可以看看 Dror Feitelson 汇总的这份[实验计算机科学资源列表](https://www.cs.huji.ac.il/w~feit/exp/related.html)，入门不妨从 Todd Mytkowicz 等人的"[Producing Wrong Data Without Doing Anything Obviously Wrong](http://eecs.northwestern.edu/~robby/courses/322-2013-spring/mytkowicz-wrong-data.pdf)"开始。
 

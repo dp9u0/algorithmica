@@ -44,6 +44,7 @@
 - front matter 只译 `title`、`menuTitle`、`part`（三者都会展示给读者：页面标题、侧边栏分册缩写、侧边栏部分名）；`weight`、`authors`、`prerequisites`、`aliases` 等保持原样
 - 代码块、`$…$` / `$$…$$` 公式、shortcode、TikZ 块**原样保留**，代码注释可不译
 - 人名、术语首次出现时可括注原文，如"缓存行（cache line）"
+- **译出的标题一律带英文显式锚点**：`### 循环展开 {#loop-unrolling}`——slug 取自英文原标题（小写、空格转 `-`、去标点）。中文标题会改变 Goldmark 自动锚点，不加则跨章 `#fragment` 链接静默失效；检查脚本第 [7] 步校验全部 fragment
 
 ### 语义分级（硬约束）
 

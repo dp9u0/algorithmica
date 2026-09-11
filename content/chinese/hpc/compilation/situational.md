@@ -14,7 +14,7 @@ Generally, you always want to specify the exact platform you are running and tur
 
 来讨论其中最常用的几个——本书前面也都讲过。
 
-### 循环展开
+### 循环展开 {#loop-unrolling}
 
 [循环展开](/hpc/architecture/loops#loop-unrolling)默认关闭，除非循环的迭代次数是编译期已知的小常数——这种情况下循环会被替换成一段完全无跳转的重复指令序列。可以用 `-funroll-loops` 标志全局启用，它会展开所有迭代次数能在编译期确定、或进入循环时就能确定的循环。
 
@@ -29,7 +29,7 @@ for (int i = 0; i < n; i++) {
 
 循环展开会增大二进制体积，运行可能变快也可能不变快。不要狂热地使用它。
 
-### 函数内联
+### 函数内联 {#function-inlining}
 
 [内联](/hpc/architecture/functions#inlining)最好交给编译器决定，但你可以用 `inline` 关键字施加影响：
 
@@ -47,7 +47,7 @@ inline int square(int x) {
 
 还有 `-finline-limit=n` 选项，可以为被内联函数的体积（按指令数计）设定具体阈值。Clang 里的等价选项是 `-inline-threshold`。
 
-### 分支的可能性
+### 分支的可能性 {#likeliness-of-branches}
 
 分支的[可能性](/hpc/architecture/layout#unequal-branches)可以用 `if` 和 `switch` 中的 `[[likely]]`、`[[unlikely]]` 属性来提示：
 

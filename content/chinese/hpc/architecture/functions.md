@@ -11,7 +11,7 @@ draft: true
 
 两个问题都能用同一个办法解决：在内存里划出一块专用位置，调用函数之前把返回所需的全部信息写进去。这块位置叫*栈*（stack）。
 
-### 栈
+### 栈 {#the-stack}
 
 硬件上的栈和软件里的栈工作方式一样，同样只用两个指针实现：
 
@@ -92,7 +92,7 @@ Note that the data in the stack is written top-to-bottom. This is just a convent
 
 -->
 
-### 调用约定
+### 调用约定 {#calling-conventions}
 
 开发编译器和操作系统的人最终制定了如何编写和调用函数的[约定](https://wiki.osdev.org/Calling_Conventions)。这些约定成就了一些重要的[软件工程奇迹](/hpc/compilation/stages/)：把编译拆分成独立单元、复用已编译的库、甚至用不同的编程语言来写它们。
 
@@ -213,7 +213,7 @@ distance:
 
 在这类场景下，函数内联显然是划算的，编译器也大多[自动](/hpc/compilation/situational)这么做；但也有不划算的时候——我们[稍后](../layout)会讲。
 
-### 尾调用消除
+### 尾调用消除 {#tail-call-elimination}
 
 当被调用者不再调用其他函数、或至少调用不是递归的时候，内联是直接了当的。来看一个更复杂的例子。这是阶乘的递归计算：
 

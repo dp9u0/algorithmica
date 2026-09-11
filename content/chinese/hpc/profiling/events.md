@@ -10,7 +10,7 @@ draft: true
 
 原则上，你大可以用 `gdb` 跑一个程序、隔三差五按一下 `ctrl+c` 来做到这一点，但现代 CPU 和操作系统为这类剖析提供了专门的工具。
 
-### 硬件事件
+### 硬件事件 {#hardware-events}
 
 硬件*性能计数器*（performance counter）是内置于微处理器中的特殊寄存器，能存储某些硬件相关活动的计数。在微芯片上添加它们很便宜，因为它们本质上就是连着一根激活线的二进制计数器。
 
@@ -20,7 +20,7 @@ draft: true
 
 总体而言，事件驱动的统计剖析通常是诊断性能问题最有效也最简单的方式。
 
-### 用 perf 剖析
+### 用 perf 剖析 {#profiling-with-perf}
 
 依赖上述事件采样技术的性能分析工具称为*统计剖析器*（statistical profiler）。这类工具很多，但本书主要使用的是 [perf](https://perf.wiki.kernel.org/)，它是随 Linux 内核发布的统计剖析器。在非 Linux 系统上，你可以用 Intel 的 [VTune](https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/vtune-profiler.html#gs.cuc0ks)，就我们的用途而言它提供大致相同的功能。它免费可用，但属于专有软件，而且社区版许可证每 90 天要续期一次；而 perf 则是货真价实的自由软件（free as in freedom）。
 

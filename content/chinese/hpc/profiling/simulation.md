@@ -16,7 +16,7 @@ The last approach (or rather a group of them) is not to gather the data by actua
 
 这类剖析器也有很多子类，区别在于模拟的是计算的哪个方面。本文将聚焦于[缓存](/hpc/cpu-cache)和[分支预测](/hpc/pipelining/branching)，为此我们使用 [Cachegrind](https://valgrind.org/docs/manual/cg-manual.html)——它是 [Valgrind](https://valgrind.org/) 中面向剖析的部分，而 Valgrind 是内存泄漏检测和内存调试领域一款久经考验的工具。
 
-### 用 Cachegrind 剖析
+### 用 Cachegrind 剖析 {#profiling-with-cachegrind}
 
 Cachegrind 本质上是检查二进制文件中的"有意思的"指令——即执行内存读/写和条件/间接跳转的指令——并把它们替换成用软件数据结构模拟相应硬件操作的代码。因此它不需要访问源码，可以处理已经编译好的程序，任何程序都可以像这样跑：
 

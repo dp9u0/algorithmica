@@ -14,7 +14,7 @@ jmp rax
 
 它有一些与动态语言和更复杂控制流实现相关的有趣应用。
 
-### 多路分支
+### 多路分支 {#multiway-branch}
 
 如果你已经忘了 `switch` 语句是干什么的，这里有一个计算美国绩点（GPA）的小子程序：
 
@@ -69,7 +69,7 @@ void weather_in_russia(int season) {
 
 基于 switch 的代码对编译器来说并不总是好优化，所以在状态机的语境下，人们经常直接用 `goto`。`glibc` 里 I/O 相关的部分满是例子。
 
-### 动态派发
+### 动态派发 {#dynamic-dispatch}
 
 间接跳转也是实现运行时多态的关键。
 

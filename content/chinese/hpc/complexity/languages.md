@@ -23,7 +23,7 @@ Because of this logic, and also because of the [computation model](../) postulat
 
 -->
 
-## 语言的类型
+## 语言的类型 {#types-of-languages}
 
 <!--
 
@@ -48,7 +48,7 @@ These instructions — called *machine code* — are binary encoded, quirky and 
 
 执行计算机程序没有"正确"的方式：每种方法各有收益与代价。解释器和虚拟机提供了灵活性，带来动态类型、运行时修改代码、自动内存管理等不错的高级特性，但也不可避免地伴随着性能代价——我们这就来谈谈。
 
-### 解释型语言
+### 解释型语言 {#interpreted-languages}
 
 下面是一个纯 Python 的按定义实现的 $1024 \times 1024$ 矩阵乘法：
 
@@ -95,7 +95,7 @@ print(duration)
 
 诚然，Python 这类广泛使用的语言的解释器已经优化得很好，在同一段代码反复执行时可以跳过其中一些步骤。但由于语言设计本身，相当可观的开销仍然不可避免。如果能去掉所有这些类型检查和指针追逐，我们能不能把每次乘法的周期数压到接近 1，或者说接近原生乘法的"成本"？
 
-### 托管语言
+### 托管语言 {#managed-languages}
 
 同样的矩阵乘法过程，用 Java 实现：
 
@@ -182,7 +182,7 @@ int main() {
 
 > **译者注**：原文的 15 倍加速基于 GNU GCC + x86，在 Apple Silicon + Apple clang 上实测未复现（1.66s → 1.55s，约 1.07 倍）。原因并非 Arm 向量化能力弱——clang 加 `-ffast-math` 后确实完成了向量化（反汇编中标量 `fmadd` 换成 2 宽向量 `fmla`）：其一，原文 15 倍的大头来自其 `-O3` 标量基线被内层累加的**浮点依赖链**卡死（每轮 `+=` 必须等上一轮完成），`-ffast-math` 允许重排后"打破依赖链 + 向量化 + 展开"三个效应叠加；其二，该朴素循环对 `b` 的按列跨步访存才是根本瓶颈（向量化后也仅达峰值算力的百分之几）——这正是下文 OpenBLAS 靠分块与手写汇编获得两个数量级加速的原因。**具体倍数高度依赖编译器与平台，但"实现方式带来数量级差异"这一结论不变**：同一台机器上，纯 Python 110.8s、C `-O3` 1.66s、NumPy（OpenBLAS）0.0054s，跨度 20500 倍。复现代码与完整实测数据见 [code/complexity/languages/](https://github.com/dp9u0/algorithmica/blob/master/code/complexity/languages/README.md)。
 
-### BLAS
+### BLAS {#blas}
 
 最后，看看专家级优化实现的能力。我们测试一个广泛使用的优化线性代数库 [OpenBLAS](https://www.openblas.net/)。最简单的用法是回到 Python，通过 `numpy` 调用它：
 
@@ -207,7 +207,7 @@ print(duration)
 
 通常你见不到这么戏剧性的提升。目前我们还讲不清这具体是怎么做到的。OpenBLAS 的稠密矩阵乘法实现通常是[5000 行手写汇编](https://github.com/xianyi/OpenBLAS/blob/develop/kernel/x86_64/dgemm_kernel_16x2_haswell.S)，并针对*每一种*体系结构单独调校。在后面的章节里，我们会逐一讲解所有相关技术，然后[回到](/hpc/algorithms/matmul)这个例子，用不到 40 行 C 写出我们自己的 BLAS 级实现。
 
-### 要点
+### 要点 {#takeaway}
 
 这一节的关键教训是：使用原生、底层的语言并不必然给你性能；但它给你对性能的*控制权*。
 

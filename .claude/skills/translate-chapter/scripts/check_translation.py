@@ -133,7 +133,12 @@ def remnants(zh_dir):
         t = re.sub(r'<!--.*?-->', '', t, flags=re.S)
         t = re.sub(r'^---.*?---', '', t, flags=re.S)
         for m in re.finditer(r'[A-Za-z][A-Za-z\'\-]{3,}(?:\s+[A-Za-z][A-Za-z\'\-]{2,}){0,4}', t):
-            if not WHITELIST.search(m.group(0)):
+            if WHITELIST.search(m.group(0)):
+                continue
+            if re.fullmatch(r"[A-Z][A-Za-z\'\-]+(?:\s+[A-Z][A-Za-z\'\-]+)*", m.group(0)):
+                # Title-Case words are proper nouns (tools, people, languages) — review note, not failure
+                print('  ! %s: proper-noun (review): "%s"' % (f, m.group(0)[:60]))
+            else:
                 fail('%s: possible remnant "%s"' % (f, m.group(0)[:60]))
     ok('remnant scan done')
 
@@ -217,6 +222,50 @@ def url_prefixes():
     if r.returncode != 0:
         fail('internal URLs missing the baseURL prefix (see above)')
 
+def fragments():
+    """Every site-internal fragment link must land on an existing id in the target page.
+
+    Chinese headings change Goldmark's auto anchor ids, so translations must carry
+    explicit {#english-slug} attributes (AGENTS.md); this catches any miss.
+    """
+    print('[7] fragment targets')
+    base = os.path.join(ROOT, 'public')
+    prefix = base_prefix()
+    drafts = draft_page_urls()
+    pat = re.compile(r'href=(?:"([^"]+)"|([^s>]+))')
+    pat = re.compile(r'href=(?:"([^"]+)"|([^\s>]+))')
+    bad, total = [], 0
+    for root, _, files in os.walk(base):
+        for fn in files:
+            if not fn.endswith('.html'): continue
+            p = os.path.join(root, fn)
+            page_url = '/' + os.path.relpath(p, base).rsplit('index.html', 1)[0]
+            if page_url.rstrip('/') in (d.rstrip('/') for d in drafts):
+                continue
+            c = open(p, encoding='utf-8', errors='ignore').read()
+            for m in pat.finditer(c):
+                u = html.unescape(m.group(1) or m.group(2))
+                if not u.startswith('/') or u.startswith('//') or '#' not in u: continue
+                u = unquote(u.split('?')[0])
+                path, _, frag = u.partition('#')
+                if not frag or frag.startswith(':~'): continue   # text fragments
+                total += 1
+                if prefix and path.startswith(prefix + '/'):
+                    path = path[len(prefix):]
+                if path in ('', '/'):
+                    target = p                                       # same-page anchor
+                else:
+                    tp = os.path.join(base, path.lstrip('/'))
+                    target = tp if os.path.isfile(tp) else os.path.join(tp, 'index.html')
+                    if not os.path.isfile(target):
+                        continue   # missing page itself is deadlinks()'s job
+                tc = open(target, encoding='utf-8', errors='ignore').read()
+                if not re.search(r'id=["\']?%s["\']?' % re.escape(frag), tc):
+                    bad.append((frag, os.path.relpath(target, base), os.path.relpath(p, base)))
+    for frag, tgt, src in bad[:20]:
+        fail('fragment #%s not found in %s (linked from %s)' % (frag, tgt, src))
+    ok('%d fragment links checked, %d missing' % (total, len(bad)))
+
 def main():
     zh_dir = sys.argv[1] if len(sys.argv) > 1 else None
     if not zh_dir or not os.path.isdir(zh_dir):
@@ -226,6 +275,7 @@ def main():
     check_chapter(zh_dir)
     deadlinks()
     url_prefixes()
+    fragments()
     remnants(zh_dir)
     print('\n%s' % ('FAIL (%d)' % len(FAIL) if FAIL else 'ALL CHECKS PASSED'))
     sys.exit(1 if FAIL else 0)

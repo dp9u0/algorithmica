@@ -26,7 +26,7 @@ Adapting algorithms for parallel hardware is important for achieving *scalabilit
 
 -->
 
-### 指令流水线
+### 指令流水线 {#instruction-pipelining}
 
 要执行*任何一条*指令，处理器都得先做大量准备工作，包括：
 
@@ -47,7 +47,7 @@ Adapting algorithms for parallel hardware is important for achieving *scalabilit
 
 只有当指令流里含有若干组逻辑上相互独立、可以分开处理的操作时，超标量处理的优势才能发挥出来。指令并不总是以最方便的顺序到来，因此只要可能，现代 CPU 会*乱序*（out of order）执行它们，以提高整体利用率、尽量减少流水线停顿。这套魔法究竟如何运转，是更高级讨论的话题<!--[a more advanced discussion](scheduling)-->；眼下你只需假设：CPU 维护着一个缓冲区，存放着往后一定距离内的待执行指令，一旦某条指令的操作数已算出、且有空闲的执行单元，就立即执行它。
 
-### 一个教育系统的类比
+### 一个教育系统的类比 {#an-education-analogy}
 
 想想我们的教育体系是怎么运转的：
 

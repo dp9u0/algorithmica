@@ -8,7 +8,7 @@ draft: true
 
 但有时也会反过来：前端喂给后端指令的速度不够快，后端吃不饱。原因有很多，归根结底都与机器码在内存中的布局方式有关，而且对性能的影响颇为玄学：删掉一段没用的代码、交换 "if" 的两个分支、甚至只改变函数声明的顺序，都可能让性能变好或变坏。
 
-### CPU 前端
+### CPU 前端 {#cpu-front-end}
 
 在机器码被转换成指令、CPU 领会程序员的意图之前，它要先经过我们关心的两个重要阶段：*取指*（fetch）和*译码*（decode）。
 
@@ -42,7 +42,7 @@ Loop Stream Detector (LSD)
 
 <!-- Having to decode a bunch of extra NOPs is usually not a problem. -->
 
-### 指令缓存
+### 指令缓存 {#instruction-cache}
 
 指令的存储和取用大体使用与数据相同的[内存系统](/hpc/cpu-cache)，只是缓存的下层可能换成一块独立的*指令缓存*（总不能让一次随手的数据读取把正在处理它的代码踢出缓存吧）。
 

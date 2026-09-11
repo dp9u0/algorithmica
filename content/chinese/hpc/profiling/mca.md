@@ -6,7 +6,7 @@ draft: true
 
 *机器码分析器*（machine code analyzer）是这样一种程序：它取一小段汇编代码，使用编译器所能获得的信息，在特定微架构上[模拟](../simulation)其执行，输出整个代码块的延迟和吞吐量，以及 CPU 内各种资源的逐周期精确利用率。
 
-### 使用 `llvm-mca`
+### 使用 `llvm-mca` {#using-llvm-mca}
 
 机器码分析器有很多种，但我个人偏好 `llvm-mca`，你多半可以通过包管理器随 `clang` 一起安装它。你也可以通过一个叫 [UICA](https://uica.uops.info) 的网页工具使用它，或者在 [Compiler Explorer](https://godbolt.org/) 里把语言选成 "Analysis"。
 

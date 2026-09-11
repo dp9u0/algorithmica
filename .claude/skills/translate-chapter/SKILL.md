@@ -29,7 +29,7 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 2. 确定章节：按 STATUS.md 找下一个 ⏳ 待译章节（与 `content/english/hpc/` 的 weight 序一致），把状态改为 ✍️ 翻译中
 3. 列出该章全部源文件；原文 `draft: true` 的跳过并在报告中说明
 4. 若 `content/chinese/hpc/<chapter>/` 已有半成品，先盘点缺口，不重译已完成篇目
-5. 术语先例：**先查根目录 `TERMS.md`**（唯一事实源），表里没有再 `grep` 已译章节；发现与表冲突的译法报 ISSUES.md，不自行改别章
+5. 术语先例：**先查根目录 `TERMS.md`**（唯一事实源），表里没有再 `grep` 已译章节；发现与表冲突的译法报 ISSUES.md，不自行改别章。注意 macOS BSD grep 对多字节交替模式（`a\|中文`）会静默丢分支——grep 时逐词查询或用 `rg`
 
 ## 阶段 1 · 翻译
 
@@ -39,6 +39,7 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 - 代码块、`$…$`/`$$…$$` 公式、shortcode、TikZ、作者的 HTML 注释 **逐字保留**
 - 图片路径改 `/en/<章节路径>/img/…`（复用英文资源，注意相对路径 `../img/` 的基准是文章所在目录）
 - 根绝对链接（`/hpc/simd`）保持原样，render hook 自动加前缀
+- 每个译出的标题补 `{#英文slug}`（见 AGENTS.md 锚点规则；slug 取自英文原标题）
 
 **语义分级（硬约束）**：
 - 开场页（`content/chinese/_index.md`、`hpc/_index.md`）→ 译者导航/改编，讲清本站定位
@@ -57,7 +58,7 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 ## 阶段 3 · 语义自查（人工通读一遍译文对照原文）
 
 - 数字、倍数、时间、结论逐一核对（如 630s/63 倍这类）
-- 术语首现括号注、全文一致性
+- 术语首现括号注、全文一致性；KaTeX 是客户端渲染——构建产物里保留 `$`/`\cdot` 原文是正常现象，目检以浏览器渲染为准
 - **译者注触发条件（三类，克制使用——一章通常 0–2 条，讨论沉淀类宁缺毋滥）**：
   1. 原文内容对本翻译站语境不适用（作者请求资助、"本书今夏发布"等以原书身份的表述）
   2. 原文疑似理论/事实错误——**不修改原文**，加注指出供读者参考

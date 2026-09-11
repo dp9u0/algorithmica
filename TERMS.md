@@ -46,16 +46,72 @@
 
 ## 各章已用（ch03–05 会话的先例，供后续章节沿用）
 
-| English | 中文 | 来源 |
-|---|---|---|
-| undefined behavior | 未定义行为 | ch04 |
-| intermediate representation (IR) | 中间表示 | ch04 |
-| design-by-contract | 按契约设计 | ch04 |
-| aliasing | 别名 | ch04 |
-| attribute | 属性 | ch04 |
-| benchmarking | 基准测试 | ch05 |
-| stop-the-world | "停下来观察" | ch05 |
-| IPC (instructions per cycle) | IPC（每周期指令数） | ch05 |
+**ch03（pipelining）**：
+
+| English | 中文 |
+|---|---|
+| structural / data / control hazard | 结构 / 数据 / 控制冒险 |
+| pipeline stall | 流水线停顿 |
+| bubble | 气泡 |
+| branch misprediction | 分支预测失败 |
+| predication | 谓词化（勿译"预测"） |
+| reciprocal throughput | 倒数吞吐量（Agner 术语） |
+| block reciprocal throughput | 块倒数吞吐量 |
+| instruction tables | 指令表 |
+| cycles per instruction (CPI) | 每指令周期数 |
+| execution unit / execution port | 执行单元 / 执行端口 |
+| critical path | 关键路径 |
+| accumulator | 累加器 |
+| front-end / back-end | 前端 / 后端 |
+| write-back | 写回 |
+| micro-operation | 微操作 |
+| conditional move (cmov) | 条件传送 |
+| masking | 掩码 |
+| reduction | 归约 |
+| data-parallel | 数据并行 |
+| cold cache | **冷缓存**（ch09 将大量使用） |
+| cold start（基准测试语境） | **冷启动**（与 cold cache 区分） |
+| warm-up run | 预热运行 |
+| in-register permutation | 寄存器内置换 |
+| flags register | 标志寄存器 |
+| padding | 填充 |
+
+**ch04（compilation）**：
+
+| English | 中文 |
+|---|---|
+| profile-guided optimization (PGO) | 剖析引导优化 |
+| corner case | 角落情况 |
+| sanitizer | 消毒器 |
+| implementation-defined | 由实现定义 |
+| object file | 目标文件 |
+| link-time optimization (LTO) | 链接时优化 |
+| interprocedural optimization | 过程间优化 |
+| header-only library | 仅头文件库 |
+| contract programming | 契约编程 |
+| dead code elimination | 死代码消除 |
+| precondition / postcondition | 前置条件 / 后置条件 |
+| static / shared library | 静态库 / 共享库 |
+| microarchitecture | 微架构 |
+| multiversioned function | 多版本函数 |
+| lookup table | 查找表 |
+
+**ch05（profiling）**：
+
+| English | 中文 |
+|---|---|
+| profiler / profiling | 剖析器 / 剖析 |
+| instrumentation | 插装（勿用"插桩"） |
+| statistical profiler | 统计剖析器 |
+| performance counter | 性能计数器 |
+| hardware event | 硬件事件 |
+| dispatch width | 发射宽度（≠ decode width 译码宽度） |
+| memory fence | 内存栅栏 |
+| intrinsic | 内建函数 |
+| bias / variance | 偏差 / 方差 |
+| membership query | 成员查询 |
+
+机器码分析器（machine code analyzer）、算术逻辑单元（ALU）已入核心表语义，两章一致。
 
 ## 待收录
 
