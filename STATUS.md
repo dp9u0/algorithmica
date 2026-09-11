@@ -7,7 +7,7 @@ skill 每次启动先读此文件恢复上下文；阶段推进时同步更新�
 | 章                              | 目录              | 状态     | 日期       | 备注                                                                      |
 | ------------------------------- | ----------------- | -------- | ---------- | ------------------------------------------------------------------------- |
 | 1 Complexity Models             | `complexity`      | ✅ 已完成 | 2026-09-11 | 2 篇 + 章节页；含 1.2 译者注（向量化平台差异）                            |
-| 2 Computer Architecture         | `architecture`    | 👀 审读中 | 2026-09-11 | 6 篇 + 章节页；`interaction` 为 draft 跳过；检查全过，待用户审读后 finish |
+| 2 Computer Architecture         | `architecture`    | ✅ 已完成 | 2026-09-12 | 6 篇 + 章节页；`interaction` 为 draft 跳过；2 条译者注（Apple M 系列、Arm 向量化实测）；实验代码 `code/architecture/` 3 个 |
 | 3 Instruction-Level Parallelism | `pipelining`      | 👀 审读中 | 2026-09-11 | 5 篇正文 + 章节页；`limits`/`scheduling` 为 draft 跳过；检查全过，待用户审读后 finish |
 | 4 Compilation                   | `compilation`     | 👀 审读中 | 2026-09-11 | 5 篇正文 + 章节页；`abstractions`/`arithmetic`/`limitations` 为 draft 跳过；检查全过，待用户审读后 finish |
 | 5 Profiling                     | `profiling`       | 👀 审读中 | 2026-09-11 | 6 篇正文 + 章节页，无 draft 原文；检查全过，含 2 条译者注（events 0.53s 笔误、mca Each cycle 笔误） |

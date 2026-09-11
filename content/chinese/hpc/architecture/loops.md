@@ -1,7 +1,6 @@
 ---
 title: 循环与条件
 weight: 2
-draft: true
 ---
 
 来看一个稍微复杂点的例子：
