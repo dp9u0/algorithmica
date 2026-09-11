@@ -6,11 +6,11 @@
 
 把英文 HPC 书（《现代硬件上的算法》）与俄文四册（CS / Math / ML / DL）**全部翻译为中文**，即原项目当前已发布的全部内容：
 
-| 来源 | 已发布可译 | 草稿（不译，待上游完成后跟进） |
-|---|---|---|
-| 英文 HPC 书 | 79 篇 | 24 篇 |
-| 俄文 CS / Math / ML / DL | 232 篇 | 104 篇 |
-| **合计** | **311 篇** | 128 篇 |
+| 来源                     | 已发布可译 | 草稿（不译，待上游完成后跟进） |
+| ------------------------ | ---------- | ------------------------------ |
+| 英文 HPC 书              | 79 篇      | 24 篇                          |
+| 俄文 CS / Math / ML / DL | 232 篇     | 104 篇                         |
+| **合计**                 | **311 篇** | 128 篇                         |
 
 草稿（`draft: true`）不在首轮目标内：它们是作者尚未完成的内容，上游完成后会再补充翻译。
 
@@ -18,13 +18,13 @@
 
 **关键结论：英文书与俄文四册没有内容重叠，也没有互相翻译关系。** 不存在"俄文 HPC 缺失"——俄文站从没有过 HPC 部分（已核验：全部 1083 个 commit 中无任何 `content/russian/hpc` 记录，俄文正文引用 HPC 时直接外链 `en.algorithmica.org/hpc/`）。
 
-| | 英文站 `en.algorithmica.org` | 俄文站 `ru.algorithmica.org` |
-|---|---|---|
-| 内容 | 《现代硬件上的算法》单本书 | 四套课程材料：CS / Math / ML / DL |
-| 主题 | 性能工程（缓存、SIMD、流水线……） | 经典算法、数学、机器学习、深度学习 |
-| 起始 | 2021 年 | 2017 年（Tinkoff Generation 教学用） |
-| 作者 | Sergey Slotin 单人创作 | 作者 + 师生协作 |
-| 状态 | **写作中，未完成** | 主体完成，部分草稿 |
+|      | 英文站 `en.algorithmica.org`     | 俄文站 `ru.algorithmica.org`         |
+| ---- | -------------------------------- | ------------------------------------ |
+| 内容 | 《现代硬件上的算法》单本书       | 四套课程材料：CS / Math / ML / DL    |
+| 主题 | 性能工程（缓存、SIMD、流水线……） | 经典算法、数学、机器学习、深度学习   |
+| 起始 | 2021 年                          | 2017 年（Tinkoff Generation 教学用） |
+| 作者 | Sergey Slotin 单人创作           | 作者 + 师生协作                      |
+| 状态 | **写作中，未完成**               | 主体完成，部分草稿                   |
 
 作者在英文书 FAQ 中明确：俄文站讲的是经典算法而非性能工程，与本书是两回事；作者的俄语 HPC 版计划是"至少翻译一部分"，尚未落地。
 
@@ -36,41 +36,41 @@
 
 TOC 中还有 14 个条目作者标注为未编写（目录里带括号的条目，如 `(6.8. Data Compression)`、`(12.5. Tries)`）。
 
-| 章 | 出处目录 | 已发布 | 草稿 | 中文 |
-|---|---|---|---|---|
-| 1 Complexity Models | `complexity` | 2 | 2 | **已完成** |
-| 2 Computer Architecture | `architecture` | 6 | 1 | 待译 |
-| 3 Instruction-Level Parallelism | `pipelining` | 5 | 2 | 待译 |
-| 4 Compilation | `compilation` | 5 | 3 | 待译 |
-| 5 Profiling | `profiling` | 6 | 0 | 待译 |
-| 6 Arithmetic | `arithmetic` | 7 | 2 | 待译 |
-| 7 Number Theory | `number-theory` | 4 | 5 | 待译 |
-| 8 External Memory | `external-memory` | 8 | 2 | 待译 |
-| 9 RAM & CPU Caches | `cpu-cache` | 11 | 0 | 待译 |
-| 10 SIMD Parallelism | `simd` | 6 | 0 | 待译 |
-| 11 Algorithm Case Studies | `algorithms` | 5 | 3 | 待译 |
-| 12 Data Structure Case Studies | `data-structures` | 4 | 3 | 待译 |
-| | **合计** | **69** | **23** | **3/69** |
+| 章                              | 出处目录          | 已发布 | 草稿   | 中文       |
+| ------------------------------- | ----------------- | ------ | ------ | ---------- |
+| 1 Complexity Models             | `complexity`      | 2      | 2      | **已完成** |
+| 2 Computer Architecture         | `architecture`    | 6      | 1      | 待译       |
+| 3 Instruction-Level Parallelism | `pipelining`      | 5      | 2      | 待译       |
+| 4 Compilation                   | `compilation`     | 5      | 3      | 待译       |
+| 5 Profiling                     | `profiling`       | 6      | 0      | 待译       |
+| 6 Arithmetic                    | `arithmetic`      | 7      | 2      | 待译       |
+| 7 Number Theory                 | `number-theory`   | 4      | 5      | 待译       |
+| 8 External Memory               | `external-memory` | 8      | 2      | 待译       |
+| 9 RAM & CPU Caches              | `cpu-cache`       | 11     | 0      | 待译       |
+| 10 SIMD Parallelism             | `simd`            | 6      | 0      | 待译       |
+| 11 Algorithm Case Studies       | `algorithms`      | 5      | 3      | 待译       |
+| 12 Data Structure Case Studies  | `data-structures` | 4      | 3      | 待译       |
+|                                 | **合计**          | **69** | **23** | **3/69**   |
 
 ### 第二、三、四部分（主体未写）
 
-| 部分 | 主题 | 出处目录 | 已发布 | 草稿 | 中文 |
-|---|---|---|---|---|---|
-| Part II Parallel Algorithms | 并发、并行、GPU | `parallel` | 8 | 1 | 待译 |
-| Part III Distributed Computing | 网络、MapReduce | `distributed` | 2 | 0 | 待译 |
-| Part IV Software & Hardware | LLVM、JIT、FPGA | — | 0 | 0 | — |
+| 部分                           | 主题            | 出处目录      | 已发布 | 草稿 | 中文 |
+| ------------------------------ | --------------- | ------------- | ------ | ---- | ---- |
+| Part II Parallel Algorithms    | 并发、并行、GPU | `parallel`    | 8      | 1    | 待译 |
+| Part III Distributed Computing | 网络、MapReduce | `distributed` | 2      | 0    | 待译 |
+| Part IV Software & Hardware    | LLVM、JIT、FPGA | —             | 0      | 0    | —    |
 
 **可翻译总量（英文）：已发布 79 篇。** `draft: true` 的 24 篇是作者未完成草稿，不发布、也不翻译——若日后作者完成，再随上游更新补译。
 
 ## 三、俄文四册完成状态
 
-| 分册 | 目录 | 已发布 | 草稿 | 已发布字数 | 中文 |
-|---|---|---|---|---|---|
-| 算法 CS | `cs` | 119 | 104 | 8.9 万 | 计划中 |
-| 数学 Math | `math` | 53 | 0 | 2.7 万 | 计划中 |
-| 机器学习 ML | `ml` | 29 | 0 | 7.3 千 | 计划中 |
-| 深度学习 DL | `dl` | 31 | 0 | 3.0 千 | 计划中 |
-| | **合计** | **232** | **104** | **12.7 万** | |
+| 分册        | 目录     | 已发布  | 草稿    | 已发布字数  | 中文   |
+| ----------- | -------- | ------- | ------- | ----------- | ------ |
+| 算法 CS     | `cs`     | 119     | 104     | 8.9 万      | 计划中 |
+| 数学 Math   | `math`   | 53      | 0       | 2.7 万      | 计划中 |
+| 机器学习 ML | `ml`     | 29      | 0       | 7.3 千      | 计划中 |
+| 深度学习 DL | `dl`     | 31      | 0       | 3.0 千      | 计划中 |
+|             | **合计** | **232** | **104** | **12.7 万** |        |
 
 CS 册的 104 篇草稿集中在早期整理中的内容；Math/ML/DL 三册已基本全部发布。可翻译总量（俄文）：已发布 232 篇。
 
@@ -85,13 +85,13 @@ CS 册的 104 篇草稿集中在早期整理中的内容；Math/ML/DL 三册已�
 
 篇数按“原文正文文章”计（不含各分册/章节的 `_index.md` 页面）。
 
-| 阶段 | 内容 | 篇数 | 状态 |
-|---|---|---|---|
-| 框架 | 站点、多语言、搜索、字体、部署配置 | — | 已完成 |
-| Part I 第 1 章 | Complexity Models | 2/2 | 已完成 |
-| Part I 第 2–12 章 | 按书序推进 | 0/67 | 进行中 |
-| Part II / III | Parallel / Distributed | 0/10 | 计划中 |
-| 俄文四册 | CS / Math / ML / DL | 0/232 | 计划中 |
-| **中文合计** | | **2/311** | |
+| 阶段              | 内容                               | 篇数      | 状态   |
+| ----------------- | ---------------------------------- | --------- | ------ |
+| 框架              | 站点、多语言、搜索、字体、部署配置 | —         | 已完成 |
+| Part I 第 1 章    | Complexity Models                  | 2/2       | 已完成 |
+| Part I 第 2–12 章 | 按书序推进                         | 0/67      | 进行中 |
+| Part II / III     | Parallel / Distributed             | 0/10      | 计划中 |
+| 俄文四册          | CS / Math / ML / DL                | 0/232     | 计划中 |
+| **中文合计**      |                                    | **2/311** |        |
 
 另有各分册首页、书首页、第 1 章章节页等导航页面 9 篇已完成。
