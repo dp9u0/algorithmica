@@ -4,7 +4,7 @@
 
 - 原作者：[Sergey Slotin](http://sereja.me/) 与 [Tinkoff Generation](https://fintech.tinkoff.ru/study/generation/) 的师生
 - 中文翻译与维护：[dp9u0](https://github.com/dp9u0)
-- 翻译状态：框架已就绪，正文逐章翻译中（已译：第 9 章 RAM & CPU Caches 的《缓存行》）
+- 翻译状态：框架已就绪，按书序逐章翻译中（已完成：第 1 章 复杂度模型；第 9 章《缓存行》试点；英文版 `models`/`levels` 两篇为作者未完成草稿，暂不翻译）
 
 ## 翻译约定
 
