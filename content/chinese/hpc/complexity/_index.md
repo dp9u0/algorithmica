@@ -1,6 +1,6 @@
 ---
 title: 复杂度模型
-part: Performance Engineering
+part: 性能工程
 aliases: [/hpc/hardware]
 weight: 1
 ---

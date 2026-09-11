@@ -26,7 +26,7 @@
 ### 内容规则
 
 - 中文放 `content/chinese/`，目录结构与 `content/english/` 完全一致（相同路径自动互译关联）
-- front matter 只译 `title`（`menuTitle` 同步译）；`weight`、`authors`、`prerequisites` 等保持原样
+- front matter 只译 `title`、`menuTitle`、`part`（三者都会展示给读者：页面标题、侧边栏分册缩写、侧边栏部分名）；`weight`、`authors`、`prerequisites`、`aliases` 等保持原样
 - 代码块、`$…$` / `$$…$$` 公式、shortcode、TikZ 块**原样保留**，代码注释可不译
 - 人名、术语首次出现时可括注原文，如"缓存行（cache line）"
 - 语气忠实原文（原作者第一人称表述保持第一人称，不改为译者口吻）；译者的补充说明用引用块（`>`）并标明"译者注"
