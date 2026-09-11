@@ -4,12 +4,23 @@ hideSidebar: true
 noToc: true
 ---
 
-Algorithmica 是一本开放获取（open-access）的在线书籍，致力于计算的技艺与科学。
+[Algorithmica](https://github.com/algorithmica-org/algorithmica) 是一套开放获取（open-access）的计算机科学书籍，由 [Sergey Slotin](http://sereja.me/) 与 [Tinkoff Generation](https://fintech.tinkoff.ru/study/generation/) 的师生共同创建——这家非营利教育机构培养了一半以上的俄罗斯信息学奥林匹克竞赛决赛选手。
 
-它由 [Sergey Slotin](http://sereja.me/) 与 [Tinkoff Generation](https://fintech.tinkoff.ru/study/generation/) 的师生共同创建——这是一家非营利教育机构，培养了俄罗斯信息学奥林匹克竞赛约半数的决赛选手。
+本站是 Algorithmica 的**中文翻译版**，正在翻译英文书[《现代硬件上的算法》（Algorithms for Modern Hardware）](hpc)：一本关于性能工程的书——如何超越渐进复杂度，把现代硬件（CPU 缓存、SIMD、流水线、多核与分布式……）的全部性能榨出来。
 
-本站是 Algorithmica 的**中文翻译版**，正在持续翻译英文书籍[《现代硬件上的算法》（Algorithms for Modern Hardware）](hpc)。俄文原版（算法、数学、机器学习、深度学习等课程材料）见 [ru.algorithmica.org](https://ru.algorithmica.org/)。
+**[开始阅读 →](hpc)**
 
-如果你发现问题，欢迎在 [GitHub](https://github.com/algorithmica-org/algorithmica/issues) 上创建 issue，或者更直接——马上动手修复（右上角的铅笔图标）。
+### 相关链接
 
-> 中文翻译由 [dp9u0](https://github.com/dp9u0) 维护 · 原项目：[algorithmica-org/algorithmica](https://github.com/algorithmica-org/algorithmica)
+- **原项目仓库**：[algorithmica-org/algorithmica](https://github.com/algorithmica-org/algorithmica)——英文原版与俄文版的源仓库
+- **英文官网**：[en.algorithmica.org](https://en.algorithmica.org/)——《现代硬件上的算法》原文，持续更新
+- **俄文官网**：[ru.algorithmica.org](https://ru.algorithmica.org/)——算法、数学、机器学习、深度学习四大分册（暂无翻译计划）
+- **本站仓库**：[dp9u0/algorithmica](https://github.com/dp9u0/algorithmica)——中文翻译的源码仓库
+
+### 参与贡献
+
+- 发现翻译错误或有改进建议：[在本站仓库创建 issue](https://github.com/dp9u0/algorithmica/issues)
+- 直接修改：点击任意页面右上角的铅笔图标，或向本站仓库提交 pull request
+- 原文本身的问题：请到[原项目仓库](https://github.com/algorithmica-org/algorithmica/issues)反馈
+
+> 中文翻译由 [dp9u0](https://github.com/dp9u0) 维护，基于 [algorithmica-org/algorithmica](https://github.com/algorithmica-org/algorithmica)。原文版权归原作者所有，转载请注明出处。

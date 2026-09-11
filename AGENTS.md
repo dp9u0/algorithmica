@@ -11,7 +11,8 @@
 
 ### 链接规则（重点）
 
-1. **上游引用用原项目地址**：原文提到项目仓库、issue、原作者个人页时（如"材料托管在 GitHub"、"创建 issue"、FAQ 里的链接），译文保持指向原地址（`github.com/algorithmica-org/algorithmica`、`sereja.me` 等），不改指到本 fork。
+1. **上游引用用原项目地址**：书页译文里原文提到项目仓库、issue、原作者个人页时（如"材料托管在 GitHub"、"创建 issue"、FAQ 里的链接），保持指向原地址（`github.com/algorithmica-org/algorithmica`、`sereja.me` 等），不改指到本 fork。
+   **例外——站点首页（`content/chinese/_index.md`）是译者导航页**，不是译文：issue 与 PR 指向本 fork（`dp9u0/algorithmica`），同时明确列出原项目仓库、英文官网（en.algorithmica.org）、俄文官网（ru.algorithmica.org）和本站仓库；原文问题引导到原项目仓库反馈。
 2. **页头"译文"互链指向官方原站**：文章头部 en/ru 译文链接渲染为 `https://en.algorithmica.org/…`、`https://ru.algorithmica.org/…`（模板 `header.html` 已实现，勿改回站内地址）；zh 译文链接指向本站。
 3. **译文正文链接一律站内**：章节互链、图片引用等使用本站路径，不外链官方站。写法见下"路径写法"。
 
