@@ -29,7 +29,7 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 2. 确定章节：按 STATUS.md 找下一个 ⏳ 待译章节（与 `content/english/hpc/` 的 weight 序一致），把状态改为 ✍️ 翻译中
 3. 列出该章全部源文件；原文 `draft: true` 的跳过并在报告中说明
 4. 若 `content/chinese/hpc/<chapter>/` 已有半成品，先盘点缺口，不重译已完成篇目
-5. `grep` 已译章节确认术语先例（如"缓存行""渐进复杂度"），保持全书一致；发现同一术语两种译法要统一
+5. 术语先例：**先查根目录 `TERMS.md`**（唯一事实源），表里没有再 `grep` 已译章节；发现与表冲突的译法报 ISSUES.md，不自行改别章
 
 ## 阶段 1 · 翻译
 
@@ -88,7 +88,7 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 4. 更新进展：`content/chinese/_index.md` 的翻译进展表 + `README.md` 的翻译状态行
 5. **回顾（自优化）**：回顾本章整个周期的摩擦点——
    - 检查脚本的误报/漏报（如新专有名词触发残留扫描）→ 调白名单或加检查
-   - 反复出现的术语/措辞修正 → 写进 AGENTS.md 或建术语表
+   - 本章新术语 → 按格式补进 `TERMS.md`（"待收录"或核心表）
    - 流程本身的别扭之处 → 改 SKILL.md
    把 `ISSUES.md` 中由本章提升的 📏 条目移入"已解决"并记录去处
 5. git 提交（**commit message 用英文**），单章一个 commit，如：`Translate chapter 9 (RAM & CPU Caches): 12 articles`；规则/脚本的修订可并入同一 commit 或单独一个
