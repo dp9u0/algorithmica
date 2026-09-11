@@ -19,7 +19,7 @@ noToc: true
 
 **纠错。** 如果你在任何页面上发现错误，请按以下优先级任选其一：
 
-- 直接修复：点击任意页面右上角的铅笔图标（打开 [Prose](https://prose.io/) 编辑器），或者更传统地，直接在 GitHub 上修改页面源码（源码链接同样在右上角）；
+- 直接修复：点击任意页面右上角的铅笔图标，在 GitHub 上编辑页面源码并提交（源码链接同样在右上角）；
 - 在 [GitHub 上创建 issue](https://github.com/algorithmica-org/algorithmica/issues)；
 - [联系原作者](http://sereja.me/)；
 

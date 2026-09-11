@@ -24,7 +24,7 @@
     <a onClick='window.print()'>
       <img src='/icons/print-solid.svg' title='print'>
     </a>
-    <a href='https://prose.io/#{{ .Site.Params.RepoPath }}/edit/master/{{.Site.Params.ContentDir}}/{{$path}}'>
+    <a href='{{.Site.Params.Repo}}/edit/master/{{.Site.Params.ContentDir}}/{{$path}}'>
       <img src='/icons/edit-solid.svg'
            title='edit'
            style='width: 18px; position: relative; right: -2px; top: -1px'>
