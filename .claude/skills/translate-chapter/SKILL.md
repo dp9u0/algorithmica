@@ -13,13 +13,18 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 - `/translate-chapter finish` —— 用户审读确认后的收尾（阶段 5）
 - `/translate-chapter resume` —— 恢复审读中的章节（重发审读表）
 
-**章节状态**记录在本目录 `STATUS.md`（⏳ 待译 → ✍️ 翻译中 → 👀 审读中 → ✅ 已完成）。每次启动先读它恢复上下文，阶段推进时更新。
+**章节状态**记录在仓库根 `STATUS.md`（⏳ 待译 → ✍️ 翻译中 → 👀 审读中 → ✅ 已完成）。每次启动先读它恢复上下文，阶段推进时更新。
 
 **草稿机制**：翻译产出的文章 front matter 一律带 `draft: true`——生产构建自动排除（审读期间不对外发布），本地预览用 `hugo serve -D`。用户确认后的 finish 阶段移除 draft 再提交。
 
+**并行会话**（多个对话各翻一章时）：
+- 共享文件（`STATUS.md`、首页进展表、`README.md`、`PLAN.md`）**只改自己章节的那一行**，改前重新读文件
+- 章节译文目录天然隔离，无冲突；检查脚本若因另一会话的中间态误报，重跑即可
+- `finish` 收尾动作尽量一次只做一个
+
 ## 阶段 0 · 准备
 
-1. 读 `STATUS.md` 恢复上下文；若有 👀 审读中的章节，提示用户可先 `/translate-chapter resume`
+1. 读仓库根 `STATUS.md` 恢复上下文；若有 👀 审读中的章节，提示用户可先 `/translate-chapter resume`
 2. 确定章节：按 STATUS.md 找下一个 ⏳ 待译章节（与 `content/english/hpc/` 的 weight 序一致），把状态改为 ✍️ 翻译中
 3. 列出该章全部源文件；原文 `draft: true` 的跳过并在报告中说明
 4. 若 `content/chinese/hpc/<chapter>/` 已有半成品，先盘点缺口，不重译已完成篇目
@@ -59,7 +64,7 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 
 ## 阶段 4 · 用户审读（在此停止）
 
-先把 `STATUS.md` 该章状态改为 👀 审读中并记日期。审读预览：`hugo serve -D`（draft 页面只在本地可见）。
+先把根目录 `STATUS.md` 该章状态改为 👀 审读中并记日期。审读预览：`hugo serve -D`（draft 页面只在本地可见）。
 
 输出审读表后**停住等待**，不催促、不自作主张收尾：
 
