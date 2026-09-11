@@ -6,7 +6,7 @@ noToc: true
 
 [Algorithmica](https://github.com/algorithmica-org/algorithmica) 是一套开放获取（open-access）的计算机科学书籍，由 [Sergey Slotin](http://sereja.me/) 与 [Tinkoff Generation](https://fintech.tinkoff.ru/study/generation/) 的师生共同创建——这家非营利教育机构培养了一半以上的俄罗斯信息学奥林匹克竞赛决赛选手。
 
-本站是 Algorithmica 的**中文翻译版**，正在翻译英文书[《现代硬件上的算法》（Algorithms for Modern Hardware）](hpc)：一本关于性能工程的书——如何超越渐进复杂度，把现代硬件（CPU 缓存、SIMD、流水线、多核与分布式……）的全部性能榨出来。
+本站是 Algorithmica 的**中文翻译版**，正在翻译[《现代硬件上的算法》（Algorithms for Modern Hardware）](https://en.algorithmica.org/hpc/)：一本关于性能工程的书——如何超越渐进复杂度，把现代硬件（CPU 缓存、SIMD、流水线、多核与分布式……）的全部性能榨出来。
 
 **[开始阅读 →](hpc)**
 
