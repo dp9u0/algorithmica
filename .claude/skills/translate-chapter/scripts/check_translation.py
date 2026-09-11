@@ -15,7 +15,7 @@ Checks:
 
 Exit code 0 iff no real problems.
 """
-import os, re, subprocess, sys, html
+import os, re, subprocess, sys, html, glob
 from urllib.parse import unquote, urlparse
 
 _HERE = os.path.dirname(os.path.abspath(__file__))          # .../scripts
@@ -27,7 +27,9 @@ def ok(msg): print('  ✓', msg)
 
 def run_build():
     print('[1] Hugo build')
-    r = subprocess.run(['hugo', '--gc', '--minify'], cwd=ROOT,
+    # -D: review-stage chapters carry draft:true in front matter (not published
+    # in production); the checker still validates them by building with drafts.
+    r = subprocess.run(['hugo', '--gc', '--minify', '--buildDrafts'], cwd=ROOT,
                        capture_output=True, text=True)
     out = r.stdout + r.stderr
     if r.returncode != 0:
@@ -137,6 +139,23 @@ def base_prefix():
     m = re.search(r'^baseURL:\s*"([^"]+)"', cfg, re.M)
     return (urlparse(m.group(1)).path if m else '/').rstrip('/')
 
+def draft_page_urls():
+    """Site-relative URLs of pages whose *source* file is draft:true.
+
+    The checker builds with --buildDrafts so review-stage translations get
+    validated; that also pulls in upstream (en/ru) draft pages which production
+    never renders. Links found on those pages are out of scope.
+    """
+    drafts = set()
+    for lang_dir, prefix in (('chinese', ''), ('english', '/en'), ('russian', '/ru')):
+        for path in glob.glob(os.path.join(ROOT, 'content', lang_dir, '**', '*.md'), recursive=True):
+            if not re.search(r'^draft:\s*true', frontmatter(open(path).read()), re.M):
+                continue
+            rel = os.path.relpath(path, os.path.join(ROOT, 'content', lang_dir))[:-3]
+            url = prefix + '/' if rel == '_index' else (prefix + '/' + rel).rstrip('/') + '/'
+            drafts.add(url)
+    return drafts
+
 def deadlinks():
     """Check internal links resolve to files in public/.
 
@@ -146,12 +165,16 @@ def deadlinks():
     print('[3] site-wide dead links (expected-404 aware)')
     base = os.path.join(ROOT, 'public')
     prefix = base_prefix()
+    drafts = draft_page_urls()
     pat = re.compile(r'(?:href|src)=(?:"([^"]+)"|([^\s>]+))')
     real, expected = {}, set()
     for root, _, files in os.walk(base):
         for fn in files:
             if not fn.endswith('.html'): continue
             p = os.path.join(root, fn)
+            page_url = '/' + os.path.relpath(p, base).rsplit('index.html', 1)[0]
+            if page_url.rstrip('/') in (d.rstrip('/') for d in drafts):
+                continue  # page source is draft; production never renders it
             c = open(p, encoding='utf-8', errors='ignore').read()
             for m in pat.finditer(c):
                 u = html.unescape(m.group(1) or m.group(2))

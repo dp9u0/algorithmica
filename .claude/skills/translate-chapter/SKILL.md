@@ -11,19 +11,25 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 - `/translate-chapter` —— 书序中下一个未翻译章节
 - `/translate-chapter <chapter-dir>` —— 指定章节（如 `cpu-cache`，即 `content/english/hpc/<chapter-dir>/`）
 - `/translate-chapter finish` —— 用户审读确认后的收尾（阶段 5）
+- `/translate-chapter resume` —— 恢复审读中的章节（重发审读表）
+
+**章节状态**记录在本目录 `STATUS.md`（⏳ 待译 → ✍️ 翻译中 → 👀 审读中 → ✅ 已完成）。每次启动先读它恢复上下文，阶段推进时更新。
+
+**草稿机制**：翻译产出的文章 front matter 一律带 `draft: true`——生产构建自动排除（审读期间不对外发布），本地预览用 `hugo serve -D`。用户确认后的 finish 阶段移除 draft 再提交。
 
 ## 阶段 0 · 准备
 
-1. 确定章节：列 `content/english/hpc/` 下各章，比对 `content/chinese/hpc/` 找出下一个未翻译的（按 en front matter 的 weight 排序）
-2. 列出该章全部源文件；`draft: true` 的跳过并在报告中说明
-3. 若 `content/chinese/hpc/<chapter>/` 已有半成品，先盘点缺口，不重译已完成篇目
-4. `grep` 已译章节确认术语先例（如"缓存行""渐进复杂度"），保持全书一致；发现同一术语两种译法要统一
+1. 读 `STATUS.md` 恢复上下文；若有 👀 审读中的章节，提示用户可先 `/translate-chapter resume`
+2. 确定章节：按 STATUS.md 找下一个 ⏳ 待译章节（与 `content/english/hpc/` 的 weight 序一致），把状态改为 ✍️ 翻译中
+3. 列出该章全部源文件；原文 `draft: true` 的跳过并在报告中说明
+4. 若 `content/chinese/hpc/<chapter>/` 已有半成品，先盘点缺口，不重译已完成篇目
+5. `grep` 已译章节确认术语先例（如"缓存行""渐进复杂度"），保持全书一致；发现同一术语两种译法要统一
 
 ## 阶段 1 · 翻译
 
 逐篇执行，严格遵守 AGENTS.md。要点回顾：
 
-- front matter 只译 `title`、`menuTitle`、`part`；`weight`/`authors`/`prerequisites`/`aliases` 原样
+- front matter 只译 `title`、`menuTitle`、`part`，并添加 `draft: true`（见上"草稿机制"）；`weight`/`authors`/`prerequisites`/`aliases` 原样
 - 代码块、`$…$`/`$$…$$` 公式、shortcode、TikZ、作者的 HTML 注释 **逐字保留**
 - 图片路径改 `/en/<章节路径>/img/…`（复用英文资源，注意相对路径 `../img/` 的基准是文章所在目录）
 - 根绝对链接（`/hpc/simd`）保持原样，render hook 自动加前缀
@@ -53,6 +59,8 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 
 ## 阶段 4 · 用户审读（在此停止）
 
+先把 `STATUS.md` 该章状态改为 👀 审读中并记日期。审读预览：`hugo serve -D`（draft 页面只在本地可见）。
+
 输出审读表后**停住等待**，不催促、不自作主张收尾：
 
 ```
@@ -68,12 +76,13 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 ## 阶段 5 · 收尾（仅当用户明确说"完成/收尾/finish"）
 
 1. 应用全部议定的修改与译者注
-2. 重跑阶段 2 检查脚本确认通过
-3. 更新进展：`content/chinese/_index.md` 的翻译进展表 + `README.md` 的翻译状态行
-4. **回顾（自优化）**：回顾本章整个周期的摩擦点——
+2. **移除该章全部译文的 `draft: true`**（此后进入生产构建，对外发布）
+3. 重跑阶段 2 检查脚本确认通过
+4. 更新进展：`content/chinese/_index.md` 的翻译进展表 + `README.md` 的翻译状态行
+5. **回顾（自优化）**：回顾本章整个周期的摩擦点——
    - 检查脚本的误报/漏报（如新专有名词触发残留扫描）→ 调白名单或加检查
    - 反复出现的术语/措辞修正 → 写进 AGENTS.md 或建术语表
    - 流程本身的别扭之处 → 改 SKILL.md
    把 `FEEDBACK.md` 中已采纳的条目提升到对应文件后**从收件箱删除**
 5. git 提交（**commit message 用英文**），单章一个 commit，如：`Translate chapter 9 (RAM & CPU Caches): 12 articles`；规则/脚本的修订可并入同一 commit 或单独一个
-6. 报告本章篇数与下一章预告
+6. `STATUS.md` 该章改为 ✅ 已完成，报告本章篇数与下一章预告
