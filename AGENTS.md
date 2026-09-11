@@ -46,6 +46,20 @@
 
 另一来源是用户审读时的讨论沉淀：用户认为值得保留的讨论，按上述格式插入合适位置。
 
+### 译者代码
+
+译者的验证/实验代码放仓库根的 `your-code/`（不在 `content/` 内，否则会被 Hugo 当内容处理），目录名与书章节目录一致。原作者把完整代码放在独立仓库 [sslotin/scmm-code](https://github.com/sslotin/scmm-code)，书正文只内联讲解性片段；本目录是译者自己的实验代码。
+
+代码进入译文有两种方式：
+
+1. **内联片段**：讲解性的一小段代码直接写进译文（与原书做法一致）
+2. **译者注 + 链接**：成组的实验代码留在 `your-code/`，译文里用引用块给出链接。链接用**绝对 GitHub URL** 指向本仓库 master 分支（译文页面与源码路径层级不同，相对链接不可靠），如：
+   ```markdown
+   > **译者注**：本节结论我在本地复现验证过，代码见 [your-code/cpu-cache/cache-lines.cpp](https://github.com/dp9u0/algorithmica/blob/master/your-code/cpu-cache/cache-lines.cpp)。
+   ```
+
+复现代码写清编译命令与观察结果（文件头注释或目录 README）；结论与原文不一致时，优先怀疑自己的实验，确认无误再作为译者注指出。
+
 ### Git
 
 - commit message 用**英文**；单章一个 commit，如 `Translate chapter 2 (Computer Architecture): 11 articles`
