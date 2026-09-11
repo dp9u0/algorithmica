@@ -1,5 +1,4 @@
-# TODO: replace with your final domain (e.g. Netlify subdomain or custom domain)
-baseURL: "https://algorithmica-zh.netlify.app/"
+baseURL: "https://dp9u0.github.io/algorithmica/"
 theme:
 - algorithmica
 - reveal-hugo

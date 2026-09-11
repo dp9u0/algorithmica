@@ -16,7 +16,7 @@ Checks:
 Exit code 0 iff no real problems.
 """
 import os, re, subprocess, sys, html
-from urllib.parse import unquote
+from urllib.parse import unquote, urlparse
 
 _HERE = os.path.dirname(os.path.abspath(__file__))          # .../scripts
 ROOT = os.path.abspath(os.path.join(_HERE, '..', '..', '..', '..'))  # repo root
@@ -119,9 +119,21 @@ def remnants(zh_dir):
                 fail('%s: possible remnant "%s"' % (f, m.group(0)[:60]))
     ok('remnant scan done')
 
+def base_prefix():
+    """URL path prefix from baseURL (e.g. '/algorithmica' for a GitHub Pages project site)."""
+    cfg = open(os.path.join(ROOT, 'config.yaml')).read()
+    m = re.search(r'^baseURL:\s*"([^"]+)"', cfg, re.M)
+    return (urlparse(m.group(1)).path if m else '/').rstrip('/')
+
 def deadlinks():
+    """Check internal links resolve to files in public/.
+
+    Note: public/ is the site root regardless of a subpath baseURL — GitHub Pages
+    mounts it at /<repo>/. So URLs carry the prefix while file paths do not.
+    """
     print('[3] site-wide dead links (expected-404 aware)')
-    base = os.path.join(ROOT, 'public'); origin = 'https://algorithmica-zh.netlify.app'
+    base = os.path.join(ROOT, 'public')
+    prefix = base_prefix()
     pat = re.compile(r'(?:href|src)=(?:"([^"]+)"|([^\s>]+))')
     real, expected = {}, set()
     for root, _, files in os.walk(base):
@@ -131,10 +143,13 @@ def deadlinks():
             c = open(p, encoding='utf-8', errors='ignore').read()
             for m in pat.finditer(c):
                 u = html.unescape(m.group(1) or m.group(2))
-                if u.startswith(origin): u = u[len(origin):]
                 if not u.startswith('/') or u.startswith('//'): continue
                 u = unquote(u.split('#')[0].split('?')[0])
                 if not u: continue
+                if prefix and u.startswith(prefix + '/'):
+                    u = u[len(prefix):]          # /algorithmica/foo -> /foo
+                elif prefix and u == prefix:
+                    u = '/'
                 t = os.path.join(base, u.lstrip('/'))
                 if os.path.isfile(t) or os.path.isfile(os.path.join(t, 'index.html')) \
                    or os.path.isfile(t.rstrip('/') + '/index.html') or os.path.isfile(t.rstrip('/')):
