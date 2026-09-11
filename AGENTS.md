@@ -2,6 +2,8 @@
 
 本仓库是 [algorithmica-org/algorithmica](https://github.com/algorithmica-org/algorithmica) 的中文翻译 fork。上游已停止维护，本仓库为独立延续项目。所有翻译和站点改动遵循以下规则。
 
+**内容版图与规划见 `PLAN.md`**：英文书（未完成，第一部分 69 篇已发布）与俄文四册（232 篇已发布）是两套无重叠的内容；`draft: true` 的草稿一律不译。
+
 ## 构建与验证
 
 - Hugo 0.166+（`hugo --gc --minify` 构建，`hugo serve` 本地预览；中文默认语言在根路径，en 在 `/en/`，ru 在 `/ru/`）
