@@ -102,10 +102,12 @@ WHITELIST = re.compile(
     r'instruction|latency|pointer|complexity|microchip|scaling|power|fidelity|leakage|managed|'
     r'Python|JavaScript|Ruby|Java|Erlang|Scala|Elixir|Apple|Atari|Commodore|IBM|Windows|Linux|'
     r'NumPy|OpenBLAS|matmul|numpy|pip|venv|JDK|'
-    r'float|double|int|char|bool|struct|class|static|void|const|long|short|unsigned|define|include|'
-    r'fmla|fmul|fadd|fdiv|scvtf|otool|clang|gcc|GCC|LLVM|'
+    r'float|double|int|char|bool|struct|class|static|void|const|long|short|unsigned|define|include|volatile|'
+    r'fmla|fmul|fadd|fdiv|scvtf|otool|clang|Clang|gcc|GCC|LLVM|pragma|Haskell|Rossum|'
     r'x86|ARM|RISC|CISC|SSE|AVX|NEON|M\d|A\d\d|AArch|AMD64|x64|Graviton|Fugaku|'
     r'HTML|HTTP|NASM|GAS|Intel|AMD|Apple|Samsung|MacBook|Facebook|BOLT|'
+    r'perf|Perf|Cachegrind|Valgrind|Makefile|Jupyter|Unix|Skylake|glibc|'
+    r'Feitelson|Mytkowicz|Berger|'
     r'goto|switch|else|while|true|false|if|for|'
     r'byte|bytes|word|quad|single|store|load|increment|multiply|division|'
     r'accumulator|counter|data|move|computed|fetch|decode')
@@ -116,6 +118,8 @@ def remnants(zh_dir):
         if not f.endswith('.md'): continue
         t = open(os.path.join(zh_dir, f)).read()
         t = re.sub(r'```.*?```', '', t, flags=re.S)
+        t = re.sub(r'\$\$.*?\$\$', '', t, flags=re.S)  # display math (strip before inline $…$ eats the delimiters)
+        t = re.sub(r'\{#[^}]*\}', '', t)  # explicit heading anchors {#english-slug} stay English by design
         t = re.sub(r'\$[^$]*\$', '', t)
         t = re.sub(r'\[\^\w+\]', '', t)  # footnote markers
         t = re.sub(r'`[^`\n]+`', '＃', t)  # inline code: technical terms are expected to stay English
