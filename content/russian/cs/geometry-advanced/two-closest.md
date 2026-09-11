@@ -106,5 +106,3 @@ $$ T(n) = 2T(\\frac{n}{2}) + \\underbrace{\\Theta(n)}_{\\text{проход
 двумя указателями}} + \\underbrace{\\Theta(n)}_{\\text{удаление из
 боковых полос лишних точек}} = 2T(\\frac{n}{2}) + \\Theta(n) \\implies
 T(n) = \\Theta(n\\log(n)) $$
-
-[Категория:Конспект](Категория:Конспект "wikilink")

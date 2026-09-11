@@ -1,7 +1,6 @@
 ---
 title: Pipeline Hazards
 weight: 1
-published: true
 ---
 
 [Pipelining](../) lets you hide the latencies of instructions by running them concurrently, but also creates some potential obstacles of its own — characteristically called *pipeline hazards*, that is, situations when the next instruction cannot execute on the following clock cycle.

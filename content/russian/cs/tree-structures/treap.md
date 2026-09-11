@@ -9,7 +9,6 @@ prerequisites:
   - ../basic-structures/heap
   - /math/probability/expectation
 weight: 1
-published: true
 ---
 
 Рене Декарт (фр. *René Descartes*) — великий французский математик и философ XVII века.

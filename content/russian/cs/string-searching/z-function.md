@@ -6,7 +6,6 @@ created: 2018
 prerequisites:
   - knuth-morris-pratt
 weight: 2
-published: true
 ---
 
 Немного более простая для понимания альтернатива префикс-функции — z-функция.

@@ -1,7 +1,6 @@
 ---
 title: Branchless Programming
 weight: 3
-published: true
 ---
 
 As we established in [the previous section](../branching), branches that can't be effectively predicted by the CPU are expensive as they may cause a long pipeline stall to fetch new instructions after a branch mispredict. In this section, we discuss the means of removing branches in the first place.

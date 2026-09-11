@@ -1,7 +1,6 @@
 ---
 title: Machine Code Layout
 weight: 10
-published: true
 ---
 
 Computer engineers like to mentally split the [pipeline of a CPU](/hpc/pipelining) into two parts: the *front-end*, where instructions are fetched from memory and decoded, and the *back-end*, where they are scheduled and finally executed. Typically, the performance is bottlenecked by the execution stage, and for this reason, most of our efforts in this book are going to be spent towards optimizing around the back-end.

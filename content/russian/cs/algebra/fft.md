@@ -9,7 +9,6 @@ date: 2021-09-14
 prerequisites:
   - polynomials
   - interpolation
-published: true
 ---
 
 Быстрое преобразование Фурье — один из самых важных алгоритмов XX века, если не самый важный.

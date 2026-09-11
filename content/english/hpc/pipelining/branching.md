@@ -1,7 +1,6 @@
 ---
 title: The Cost of Branching
 weight: 2
-published: true
 ---
 
 When a CPU encounters a conditional jump or [any other type of branching](/hpc/architecture/indirect), it doesn't just sit idle until its condition is computed — instead, it starts *speculatively executing* the branch that seems more likely to be taken immediately. During execution, the CPU computes statistics about branches taken on each instruction, and after some time, they start to predict them by recognizing common patterns.

@@ -1,7 +1,6 @@
 ---
 title: Instrumentation
 weight: 1
-published: true
 ---
 
 <!-- pv in Linux, pipes -->

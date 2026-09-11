@@ -1,7 +1,6 @@
 ---
 title: Memory Bandwidth
 weight: 1
-published: true
 ---
 
 On the data path between the CPU registers and the RAM, there is a hierarchy of *caches* that exist to speed up access to frequently used data: the layers closer to the processor are faster but also smaller in size. The word "faster" here applies to two closely related but separate timings:
