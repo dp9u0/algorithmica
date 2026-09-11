@@ -1,4 +1,4 @@
-# 译者代码（your-code）
+# 译者代码（code）
 
 这里放**译者（dp9u0）在学习过程中编写的验证代码**，用于复现书中的结论、做对照实验，并作为译者注的支撑材料。
 
@@ -7,7 +7,7 @@
 ## 目录约定
 
 ```
-your-code/
+code/
 ├── README.md              # 本文件
 └── <chapter-dir>/         # 与 content/english/hpc/<chapter-dir> 同名
     ├── README.md          # 本章实验说明（可选）
@@ -36,7 +36,7 @@ c++ -O3 -march=native -o cache-lines cpu-cache/cache-lines.cpp && ./cache-lines
 2. **译者注 + 链接**：成组的实验代码留在本目录，译文里用引用块给出链接：
 
    ```markdown
-   > **译者注**：本节结论我在本地复现验证过，代码见 [your-code/cpu-cache/cache-lines.cpp](https://github.com/dp9u0/algorithmica/blob/master/your-code/cpu-cache/cache-lines.cpp)。
+   > **译者注**：本节结论我在本地复现验证过，代码见 [code/cpu-cache/cache-lines.cpp](https://github.com/dp9u0/algorithmica/blob/master/code/cpu-cache/cache-lines.cpp)。
    ```
 
    链接一律用**绝对 GitHub URL**（指向本仓库 master 分支），因为译文页面和源码文件不在同一路径层级，相对链接不可靠。
