@@ -32,7 +32,28 @@ cc -O3 -march=native -ffast-math -o matmul_fast matmul.c && ./matmul_fast
 python3 matmul_numpy.py
 ```
 
+## 实测记录
+
+环境：Apple M5（10 核）/ macOS，`gcc` 实为 Apple clang 21，Python 3.9.6 CPython，NumPy 2.0.2（OpenBLAS）。
+
+| 实现 | 原文报告 | 本机实测 | 相对纯 Python |
+| --- | --- | --- | --- |
+| 纯 Python | 630 s | 110.8 s | 1× |
+| C `-O3` | 9 s | 1.66 s | 67× |
+| C `-O3 -march=native` | — | 1.74 s | 64× |
+| C `-O3 -ffast-math` | — | 1.42 s | 78× |
+| C `-O3 -march=native -ffast-math` | 0.6 s（较 `-O3` 快 15×） | 1.55 s | 71× |
+| NumPy（OpenBLAS） | 0.12 s | 0.0054 s（稳态；首跑 0.016 s） | 20500× |
+
+反汇编（`otool -tv`）计数：`-O3` 无浮点向量指令，`-ffast-math` 才生成 `fmla`/`fmul`。
+
+这两点与原文不同，均源于工具链差异（GNU GCC + x86 vs Apple clang + ARM）：
+
+1. 原文 `-march=native -ffast-math` 带来 15 倍加速，本机仅约 1.07 倍（噪声范围内）
+2. 但核心结论更强：本机四档跨度 20500 倍（原文约 5250 倍），"实现方式带来数量级差异"不因平台改变
+
 ## 提示
 
 - 数字应与原文的数量级一致，但**绝对值会因机器不同而不同**——原文强调的正是"渐进复杂度之外，实际性能取决于硬件与实现"
 - 复现结果与原文差异较大时，先核对编译选项与 CPU 型号，再考虑作为译者注指出
+- NumPy 需先安装（`python3 -m venv venv && venv/bin/pip install numpy`）；无 JDK 时 Java 版跳过

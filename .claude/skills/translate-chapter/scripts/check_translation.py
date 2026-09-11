@@ -98,7 +98,10 @@ WHITELIST = re.compile(
     r'sort|find|accumulate|lower_bound|unordered|for-for-for|march|native|ffast-math|'
     r'instruction|latency|pointer|complexity|microchip|scaling|power|fidelity|leakage|managed|'
     r'Python|JavaScript|Ruby|Java|Erlang|Scala|Elixir|Apple|Atari|Commodore|IBM|Windows|Linux|'
-    r'float|double|int|char|bool|struct|class|static|void|const|long|short|unsigned|define|include')
+    r'NumPy|OpenBLAS|matmul|numpy|pip|venv|JDK|'
+    r'float|double|int|char|bool|struct|class|static|void|const|long|short|unsigned|define|include|'
+    r'fmla|fmul|fadd|fdiv|scvtf|otool|clang|gcc|GCC|LLVM|'
+    r'x86|ARM|RISC|SSE|AVX|NEON|M\d|A\d\d')
 
 def remnants(zh_dir):
     print('[5] English remnant heuristic')

@@ -180,6 +180,8 @@ int main() {
 
 并不是说 PyPy 和 Java 的 JIT 编译器不可能在不大改源代码的情况下调校到同样的性能，但对直接编译成原生代码的语言来说，这确实更容易。
 
+> **译者注**：原文的 15 倍加速基于 GNU GCC + x86。在 Apple Silicon + Apple clang 上实测，`-O3` 已不再自动向量化（反汇编无 `fmla`/`fmul`），加 `-ffast-math` 后才生成向量指令，耗时仅从 1.66s 降到 1.55s——**具体倍数高度依赖编译器与平台，但"编译器优化带来数量级差异"这一结论不变**：同一台机器上，纯 Python 110.8s、C `-O3` 1.66s、NumPy（OpenBLAS）0.0054s，跨度 20500 倍。复现代码与完整实测数据见 [code/complexity/languages/](https://github.com/dp9u0/algorithmica/blob/master/code/complexity/languages/README.md)。
+
 ### BLAS
 
 最后，看看专家级优化实现的能力。我们测试一个广泛使用的优化线性代数库 [OpenBLAS](https://www.openblas.net/)。最简单的用法是回到 Python，通过 `numpy` 调用它：
