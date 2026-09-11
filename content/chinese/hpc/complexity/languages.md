@@ -180,7 +180,7 @@ int main() {
 
 并不是说 PyPy 和 Java 的 JIT 编译器不可能在不大改源代码的情况下调校到同样的性能，但对直接编译成原生代码的语言来说，这确实更容易。
 
-> **译者注**：原文的 15 倍加速基于 GNU GCC + x86。在 Apple Silicon + Apple clang 上实测，`-O3` 已不再自动向量化（反汇编无 `fmla`/`fmul`），加 `-ffast-math` 后才生成向量指令，耗时仅从 1.66s 降到 1.55s——**具体倍数高度依赖编译器与平台，但"编译器优化带来数量级差异"这一结论不变**：同一台机器上，纯 Python 110.8s、C `-O3` 1.66s、NumPy（OpenBLAS）0.0054s，跨度 20500 倍。复现代码与完整实测数据见 [code/complexity/languages/](https://github.com/dp9u0/algorithmica/blob/master/code/complexity/languages/README.md)。
+> **译者注**：原文的 15 倍加速基于 GNU GCC + x86，在 Apple Silicon + Apple clang 上实测未复现（1.66s → 1.55s，约 1.07 倍）。原因并非 Arm 向量化能力弱——clang 加 `-ffast-math` 后确实完成了向量化（反汇编中标量 `fmadd` 换成 2 宽向量 `fmla`）：其一，原文 15 倍的大头来自其 `-O3` 标量基线被内层累加的**浮点依赖链**卡死（每轮 `+=` 必须等上一轮完成），`-ffast-math` 允许重排后"打破依赖链 + 向量化 + 展开"三个效应叠加；其二，该朴素循环对 `b` 的按列跨步访存才是根本瓶颈（向量化后也仅达峰值算力的百分之几）——这正是下文 OpenBLAS 靠分块与手写汇编获得两个数量级加速的原因。**具体倍数高度依赖编译器与平台，但"实现方式带来数量级差异"这一结论不变**：同一台机器上，纯 Python 110.8s、C `-O3` 1.66s、NumPy（OpenBLAS）0.0054s，跨度 20500 倍。复现代码与完整实测数据见 [code/complexity/languages/](https://github.com/dp9u0/algorithmica/blob/master/code/complexity/languages/README.md)。
 
 ### BLAS
 
