@@ -63,10 +63,17 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 
 用户会对照原文提问、讨论。用户认为值得沉淀的讨论，按译者注格式插入合适位置（讨论本身也可能修正译文——先改译文，再决定是否还需加注）。
 
+**反馈捕获**：审读中用户纠正的译法，若根因是规则缺口（而非一次性措辞偏好），或用户明说"记一下/这个要进规则"，立即追加到本 skill 目录的 `FEEDBACK.md`（收件箱）。同类问题第二次出现或用户明确偏好才记，不记一次性调整。
+
 ## 阶段 5 · 收尾（仅当用户明确说"完成/收尾/finish"）
 
 1. 应用全部议定的修改与译者注
 2. 重跑阶段 2 检查脚本确认通过
 3. 更新进展：`content/chinese/_index.md` 的翻译进展表 + `README.md` 的翻译状态行
-4. git 提交（**commit message 用英文**），单章一个 commit，如：`Translate chapter 9 (RAM & CPU Caches): 12 articles`
-5. 报告本章篇数与下一章预告
+4. **回顾（自优化）**：回顾本章整个周期的摩擦点——
+   - 检查脚本的误报/漏报（如新专有名词触发残留扫描）→ 调白名单或加检查
+   - 反复出现的术语/措辞修正 → 写进 AGENTS.md 或建术语表
+   - 流程本身的别扭之处 → 改 SKILL.md
+   把 `FEEDBACK.md` 中已采纳的条目提升到对应文件后**从收件箱删除**
+5. git 提交（**commit message 用英文**），单章一个 commit，如：`Translate chapter 9 (RAM & CPU Caches): 12 articles`；规则/脚本的修订可并入同一 commit 或单独一个
+6. 报告本章篇数与下一章预告
