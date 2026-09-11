@@ -18,30 +18,30 @@
         <div class='left'>
         {{ with index $pages (add $selfIdx -1) }}
           {{ with index (last 1 .Pages) 0 }}
-            <a href='{{.Permalink}}' id='prev-article'>← {{ .Title }}</a><br>
+            <a href='{{.RelPermalink}}' id='prev-article'>← {{ .Title }}</a><br>
           {{ end }}
-          <a href='{{.Permalink}}'>← ../{{ .Title }}</a>
+          <a href='{{.RelPermalink}}'>← ../{{ .Title }}</a>
         {{ end }}
         </div>
         <div class='right'>
         {{ with index .Pages 0 }}
-          <a href='{{.Permalink}}' id='next-article'>{{ .Title }} →</a><br>
+          <a href='{{.RelPermalink}}' id='next-article'>{{ .Title }} →</a><br>
         {{ end }}
         {{ with index $pages (add $selfIdx 1) }}
-          <a href='{{.Permalink}}'>../{{ .Title }} →</a>
+          <a href='{{.RelPermalink}}'>../{{ .Title }} →</a>
         {{ end }}
         </div>
       {{ else }}
         <div class='left'>
         {{ with index $pages (add $selfIdx -1) }}
-          <a href='{{.Permalink}}' id='prev-article'>← {{ .Title }}</a>
+          <a href='{{.RelPermalink}}' id='prev-article'>← {{ .Title }}</a>
         {{ else }}
-          <a href='{{.Parent.Permalink}}' id='prev-article'>← ../{{ .Parent.Title }}</a>
+          <a href='{{.Parent.RelPermalink}}' id='prev-article'>← ../{{ .Parent.Title }}</a>
         {{ end }}
         </div>
         <div class='right'>
         {{ with index $pages (add $selfIdx 1) }}
-          <a href='{{.Permalink}}' id='next-article'>{{ .Title }} →</a>
+          <a href='{{.RelPermalink}}' id='next-article'>{{ .Title }} →</a>
         {{ else }}
           {{ $parent := .Parent }}
           {{ $parentIdx := -1 }}
@@ -54,7 +54,7 @@
           {{ end }}
         
           {{ with index $pages (add $parentIdx 1) }}
-            <a href='{{.Permalink}}' id='next-article'>../{{ .Title }} →</a>
+            <a href='{{.RelPermalink}}' id='next-article'>../{{ .Title }} →</a>
           {{ end }}
         {{ end }}
         </div>

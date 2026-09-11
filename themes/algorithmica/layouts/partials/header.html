@@ -37,7 +37,7 @@
           {{ $this := . }}
           {{ range .Params.Prerequisites }}
             {{ with $this.GetPage . }}
-              <span><a href='{{.Permalink}}'>{{ .Title }}</a></span>
+              <span><a href='{{.RelPermalink}}'>{{ .Title }}</a></span>
             {{ end }}
           {{ end }}
         </div>
@@ -47,7 +47,7 @@
           <span>{{ T "translations" }}</span>
           {{ range .Translations }}
             {{- /* en/ru 译本链接指向官方原站；zh 译本指向本站 */ -}}
-            {{- $href := .Permalink -}}
+            {{- $href := .RelPermalink -}}
             {{- if eq .Lang "en" -}}
               {{- $href = printf "https://en.algorithmica.org%s" (strings.TrimPrefix "/en" .RelPermalink) -}}
             {{- else if eq .Lang "ru" -}}

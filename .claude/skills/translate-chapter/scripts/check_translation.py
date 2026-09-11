@@ -38,9 +38,10 @@ def run_build():
     ok('clean build'); return True
 
 def strip_code(t):  return re.sub(r'```.*?```', '', t, flags=re.S)
-def codeblocks(t):  return re.findall(r'```(?:\w+)?\n(.*?)```', t, re.S)
+def codeblocks(t):  return re.findall(r'```[A-Za-z0-9+#._-]*\n(.*?)```', t, re.S)
 def formulas(t):
     t = strip_code(t)
+    t = re.sub(r'`[^`\n]+`', '', t)  # literal $ signs in inline code are not math
     return re.findall(r'\$\$(.+?)\$\$|\$([^\$\n]+?)\$', t, re.S)
 
 def norm_block(b): return '\n'.join(l.rstrip() for l in b.rstrip('\n').splitlines())
@@ -101,7 +102,11 @@ WHITELIST = re.compile(
     r'NumPy|OpenBLAS|matmul|numpy|pip|venv|JDK|'
     r'float|double|int|char|bool|struct|class|static|void|const|long|short|unsigned|define|include|'
     r'fmla|fmul|fadd|fdiv|scvtf|otool|clang|gcc|GCC|LLVM|'
-    r'x86|ARM|RISC|SSE|AVX|NEON|M\d|A\d\d')
+    r'x86|ARM|RISC|CISC|SSE|AVX|NEON|M\d|A\d\d|AArch|AMD64|x64|Graviton|Fugaku|'
+    r'HTML|HTTP|NASM|GAS|Intel|AMD|Apple|Samsung|MacBook|Facebook|BOLT|'
+    r'goto|switch|else|while|true|false|if|for|'
+    r'byte|bytes|word|quad|single|store|load|increment|multiply|division|'
+    r'accumulator|counter|data|move|computed|fetch|decode')
 
 def remnants(zh_dir):
     print('[5] English remnant heuristic')
@@ -111,6 +116,13 @@ def remnants(zh_dir):
         t = re.sub(r'```.*?```', '', t, flags=re.S)
         t = re.sub(r'\$[^$]*\$', '', t)
         t = re.sub(r'\[\^\w+\]', '', t)  # footnote markers
+        t = re.sub(r'`[^`\n]+`', '＃', t)  # inline code: technical terms are expected to stay English
+        # terminology glosses 术语（english term）are required by AGENTS.md — drop the English part
+        t = re.sub(r'（[^（）]*[A-Za-z][^（）]*）', '（）', t)
+        t = re.sub(r'\([^()]*[A-Za-z][^()]*\)', '()', t)
+        # the author's quoted English phrases ("store/load a word") are kept verbatim by design
+        t = re.sub(r'"[^"\n]*[A-Za-z][^"\n]*"', '“”', t)
+        t = re.sub(r'“[^”\n]*[A-Za-z][^”\n]*”', '“”', t)
         t = re.sub(r'\[[^\]]*\]\([^)]*\)', '链接', t)
         t = re.sub(r'<!--.*?-->', '', t, flags=re.S)
         t = re.sub(r'^---.*?---', '', t, flags=re.S)
