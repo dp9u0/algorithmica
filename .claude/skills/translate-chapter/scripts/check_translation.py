@@ -65,6 +65,11 @@ def check_chapter(zh_dir):
         zh_p = os.path.join(zh_dir, f)
         if re.search(r'^draft:\s*true', frontmatter(en_t), re.M):
             print('  - skip draft %s' % f); continue
+        if not os.path.isfile(zh_p):
+            # upstream quirk: parallel/gpu chapter page is _index.en.md; its zh counterpart is _index.md
+            alt = re.sub(r'\.en\.md$', '.md', f)
+            if alt != f and os.path.isfile(os.path.join(zh_dir, alt)):
+                zh_p = os.path.join(zh_dir, alt)
         if not os.path.isfile(zh_p): fail('missing translation %s' % zh_p); continue
         zh_t = open(zh_p).read()
         print('  checking %s' % f)
@@ -96,7 +101,7 @@ WHITELIST = re.compile(
     r'cache line|SIMD|CPU|GPU|open-access|HackerNews|CodeForces|Twitter|Prose|ppm|netlify|'
     r'GitHub|issue|pull request|JIT|BLAS|OpenBLAS|numpy|PyPy|bytecode|just-in-time|fork|RAM|'
     r'FPGA|ASIC|VM|nm|Karatsuba|OpenMP|CUDA|kernel|warp|block|actor|all-reduce|MapReduce|'
-    r'Cython|Numba|Julia|OpenCL|oneAPI|Verilog|Spark|Rust|Dask|FFT|TLB|L\d|Zen|AMD|Intel|'
+    r'Cython|Numba|Julia|OpenCL|oneAPI|Verilog|Spark|Rust|Dask|FFT|TLB|L\d|Zen|AMD|Intel|Pollard|'
     r'Algorithmica|Math|TODO|what you want|University|std::|argmin|popcount|popcnt|scanf|'
     r'sort|find|accumulate|lower_bound|unordered|for-for-for|march|native|ffast-math|'
     r'instruction|latency|pointer|complexity|microchip|scaling|power|fidelity|leakage|managed|'
@@ -110,6 +115,10 @@ WHITELIST = re.compile(
     r'Feitelson|Mytkowicz|Berger|'
     r'goto|switch|else|while|true|false|if|for|'
     r'byte|bytes|word|quad|single|store|load|increment|multiply|division|'
+    r'gather|scatter|permute|ahnentafel|'
+    r'half|extended|quadruple|bfloat|octuple|octal|center-pre|'
+    r'uOps|softmax|logit|argmax|rabin-karp|'
+    r'atomic|Change runtime type|Hardware accelerator|'
     r'accumulator|counter|data|move|computed|fetch|decode')
 
 def remnants(zh_dir):
@@ -118,6 +127,9 @@ def remnants(zh_dir):
         if not f.endswith('.md'): continue
         t = open(os.path.join(zh_dir, f)).read()
         t = re.sub(r'```.*?```', '', t, flags=re.S)
+        t = re.sub(r'<pre.*?</pre>', '', t, flags=re.S)  # verbatim ASCII diagrams, same as code blocks
+        t = re.sub(r'<[^>\n]+>', '', t)  # HTML tags (<img width=…>, <center>) — markup, not prose
+        t = re.sub(r'(?m)^[ \t]{4,}.*$', '', t)  # indented blocks: markdown code / notebook output
         t = re.sub(r'\$\$.*?\$\$', '', t, flags=re.S)  # display math (strip before inline $…$ eats the delimiters)
         t = re.sub(r'\{#[^}]*\}', '', t)  # explicit heading anchors {#english-slug} stay English by design
         t = re.sub(r'\$[^$]*\$', '', t)
@@ -130,6 +142,7 @@ def remnants(zh_dir):
         t = re.sub(r'"[^"\n]*[A-Za-z][^"\n]*"', '“”', t)
         t = re.sub(r'“[^”\n]*[A-Za-z][^”\n]*”', '“”', t)
         t = re.sub(r'\[[^\]]*\]\([^)]*\)', '链接', t)
+        t = re.sub(r'https?://\S+', '', t)  # bare URLs kept verbatim (author's notes)
         t = re.sub(r'<!--.*?-->', '', t, flags=re.S)
         t = re.sub(r'^---.*?---', '', t, flags=re.S)
         for m in re.finditer(r'[A-Za-z][A-Za-z\'\-]{3,}(?:\s+[A-Za-z][A-Za-z\'\-]{2,}){0,4}', t):

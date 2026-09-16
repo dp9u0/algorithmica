@@ -13,21 +13,21 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 - `/translate-chapter finish` —— 用户审读确认后的收尾（阶段 5）
 - `/translate-chapter resume` —— 恢复审读中的章节（重发审读表）
 
-**章节状态**记录在仓库根 `STATUS.md`（⏳ 待译 → ✍️ 翻译中 → 👀 审读中 → ✅ 已完成）。每次启动先读它恢复上下文，阶段推进时更新。
+**章节状态**记录在仓库根 `STATUS.md`（待译 → 翻译中 → 审读中（draft，不发布）→ 已完成；状态用纯文字，不用图标）。每次启动先读它恢复上下文，阶段推进时更新。
 
-**草稿机制**：翻译产出的文章 front matter 一律带 `draft: true`——生产构建自动排除（审读期间不对外发布），本地预览用 `hugo serve -D`。用户确认后的 finish 阶段移除 draft 再提交。
+**草稿机制**：翻译产出的文章 front matter 一律带 `draft: true`——生产构建自动排除（审读期间不对外发布），本地预览用 `hugo serve -D`。用户确认后的 finish 阶段移除 draft 再提交。**例外——草稿译本**（原文本身 `draft: true`，原作者未发布）：`draft: true` 永久保留，finish 也不移除，译文不发布（标记规则见 AGENTS.md"草稿译本"）。
 
 **并行会话**（多个对话各翻一章时）：
 - 共享文件（`STATUS.md`、首页进展表、`README.md`、`PLAN.md`）**只改自己章节的那一行**，改前重新读文件
 - 章节译文目录天然隔离，无冲突；检查脚本若因另一会话的中间态误报，重跑即可
 - `finish` 收尾动作尽量一次只做一个
-- 问题统一进根目录 `ISSUES.md`（原 FEEDBACK.md 已并入）：🐛 系统缺陷（主题/模板、config、部署、检查脚本、跨章节术语）只报告不修复，由协调会话处理；📏 规则缺口在 finish 回顾时提升到 AGENTS.md / SKILL.md / 检查脚本
+- 问题统一进根目录 `ISSUES.md`（原 FEEDBACK.md 已并入）：系统缺陷（主题/模板、config、部署、检查脚本、跨章节术语）只报告不修复，由协调会话处理；规则缺口在 finish 回顾时提升到 AGENTS.md / SKILL.md / 检查脚本（ISSUES 全文不用图标）
 
 ## 阶段 0 · 准备
 
-1. 读仓库根 `STATUS.md` 恢复上下文；若有 👀 审读中的章节，提示用户可先 `/translate-chapter resume`
-2. 确定章节：按 STATUS.md 找下一个 ⏳ 待译章节（与 `content/english/hpc/` 的 weight 序一致），把状态改为 ✍️ 翻译中
-3. 列出该章全部源文件；原文 `draft: true` 的跳过并在报告中说明
+1. 读仓库根 `STATUS.md` 恢复上下文；若有审读中的章节，提示用户可先 `/translate-chapter resume`
+2. 确定章节：按 STATUS.md 找下一个待译章节（与 `content/english/hpc/` 的 weight 序一致），把状态改为翻译中
+3. 列出该章全部源文件；原文 `draft: true` 的按**草稿译本**处理：照译并打草稿标记，译文不发布（规则见 AGENTS.md"草稿译本"）。正文仅数行的空壳（PLAN §1 的 C 级）照现状翻译，报告中提示补写另议
 4. 若 `content/chinese/hpc/<chapter>/` 已有半成品，先盘点缺口，不重译已完成篇目
 5. 术语先例：**先查根目录 `TERMS.md`**（唯一事实源），表里没有再 `grep` 已译章节；发现与表冲突的译法报 ISSUES.md，不自行改别章。注意 macOS BSD grep 对多字节交替模式（`a\|中文`）会静默丢分支——grep 时逐词查询或用 `rg`
 
@@ -36,6 +36,7 @@ description: 翻译 Algorithmica/HPC 书的一个章节：读取英文原文→�
 逐篇执行，严格遵守 AGENTS.md。要点回顾：
 
 - front matter 只译 `title`、`menuTitle`、`part`，并添加 `draft: true`（见上"草稿机制"）；`weight`/`authors`/`prerequisites`/`aliases` 原样
+- 草稿译本（原文 `draft: true`）：`title` 加 `[草稿]` 前缀（如 `[草稿]哈希表`），`draft: true` 永久保留（见上"草稿机制"）
 - 代码块、`$…$`/`$$…$$` 公式、shortcode、TikZ、作者的 HTML 注释 **逐字保留**
 - 图片路径改 `/en/<章节路径>/img/…`（复用英文资源，注意相对路径 `../img/` 的基准是文章所在目录）
 - 根绝对链接（`/hpc/simd`）保持原样，render hook 自动加前缀
@@ -67,7 +68,7 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 
 ## 阶段 4 · 用户审读（在此停止）
 
-先把根目录 `STATUS.md` 该章状态改为 👀 审读中并记日期。审读预览：`hugo serve -D`（draft 页面只在本地可见）。
+先把根目录 `STATUS.md` 该章状态改为审读中并记日期。审读预览：`hugo serve -D`（draft 页面只在本地可见）。
 
 输出审读表后**停住等待**，不催促、不自作主张收尾：
 
@@ -77,20 +78,22 @@ python3 .claude/skills/translate-chapter/scripts/check_translation.py content/ch
 | … | http://localhost:1313/hpc/<chapter>/<article>/ | https://en.algorithmica.org/hpc/<chapter>/<article>/ |
 ```
 
+**草稿篇目**原文未发布，en.algorithmica.org 链接是 404——"官方英文原文"列改链上游源文件：`https://github.com/algorithmica-org/algorithmica/blob/master/content/english/hpc/<chapter>/<article>.md`。
+
 用户会对照原文提问、讨论。用户认为值得沉淀的讨论（译者注第 3 类），按译者注格式插入合适位置（讨论本身也可能修正译文——先改译文，再决定是否还需加注）。
 
-**反馈捕获**：审读中用户纠正的译法，若根因是规则缺口（而非一次性措辞偏好），或用户明说"记一下/这个要进规则"，立即追加到根目录 `ISSUES.md`（类型 📏 规则缺口）。同类问题第二次出现或用户明确偏好才记，不记一次性调整。
+**反馈捕获**：审读中用户纠正的译法，若根因是规则缺口（而非一次性措辞偏好），或用户明说"记一下/这个要进规则"，立即追加到根目录 `ISSUES.md`（类型：规则）。同类问题第二次出现或用户明确偏好才记，不记一次性调整。
 
 ## 阶段 5 · 收尾（仅当用户明确说"完成/收尾/finish"）
 
 1. 应用全部议定的修改与译者注
-2. **移除该章全部译文的 `draft: true`**（此后进入生产构建，对外发布）
+2. **移除该章全部译文的 `draft: true`**（此后进入生产构建，对外发布）——**草稿译本除外**：永久 `draft: true`，不发布
 3. 重跑阶段 2 检查脚本确认通过
-4. 更新进展：`content/chinese/_index.md` 的翻译进展表 + `README.md` 的翻译状态行
+4. 更新进展：`content/chinese/_index.md` 的翻译进展表 + `README.md` 的翻译状态行。**不修改 `PLAN.md`**——finish 只改状态，PLAN 仅在用户明确发起计划调整的会话中修订；发现的计划偏差记录在报告/ISSUES.md 里备查
 5. **回顾（自优化）**：回顾本章整个周期的摩擦点——
    - 检查脚本的误报/漏报（如新专有名词触发残留扫描）→ 调白名单或加检查
    - 本章新术语 → 按格式补进 `TERMS.md`（"待收录"或核心表）
    - 流程本身的别扭之处 → 改 SKILL.md
-   把 `ISSUES.md` 中由本章提升的 📏 条目移入"已解决"并记录去处
+   把 `ISSUES.md` 中由本章提升的规则类条目移入"已解决"并记录去处
 5. git 提交（**commit message 用英文**），单章一个 commit，如：`Translate chapter 9 (RAM & CPU Caches): 12 articles`；规则/脚本的修订可并入同一 commit 或单独一个
-6. `STATUS.md` 该章改为 ✅ 已完成，报告本章篇数与下一章预告
+6. `STATUS.md` 该章改为已完成，报告本章篇数与下一章预告

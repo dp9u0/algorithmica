@@ -2,7 +2,7 @@
 
 本仓库是 [algorithmica-org/algorithmica](https://github.com/algorithmica-org/algorithmica) 的中文翻译 fork。上游已停止维护，本仓库为独立延续项目。所有翻译和站点改动遵循以下规则。
 
-**内容版图与规划见 `PLAN.md`**：英文书（未完成，第一部分 69 篇已发布）与俄文四册（232 篇已发布）是两套无重叠的内容；`draft: true` 的草稿一律不译。
+**内容版图与规划见 `PLAN.md`**：英文书（未完成，卷 I 69 篇已发布，卷 II/III 整部草稿）与俄文四册（cs 册 119 篇已发布，math/ml/dl 整册草稿）是两套无重叠的内容。草稿处理方向已定（草稿译本 + 二次编辑、译者补写，分级见 PLAN §1）：草稿原文随章译出、打草稿标记、译文不发布（见下"内容规则·草稿译本"）；二次编辑与发布时点、译者补写流程按 PLAN §2 剩余约定推进。
 
 ## 构建与验证
 
@@ -42,6 +42,7 @@
 
 - 中文放 `content/chinese/`，目录结构与 `content/english/` 完全一致（相同路径自动互译关联）
 - front matter 只译 `title`、`menuTitle`、`part`（三者都会展示给读者：页面标题、侧边栏分册缩写、侧边栏部分名）；`weight`、`authors`、`prerequisites`、`aliases` 等保持原样
+- **草稿译本**：原文 front matter 带 `draft: true`（原作者写就但未发布，官方站上没有该页——页头"译文"链接与官方原文链接均为死链）的篇目照常翻译，但 `title`（及 `menuTitle`，如有）加 `[草稿]` 前缀（如 `[草稿]哈希表`），且译文的 `draft: true` **永久保留**——不随章节 finish 发布，仅本地 `hugo serve -D` 可见；对照原文用上游源文件（`github.com/algorithmica-org/algorithmica/blob/master/content/english/hpc/…`）
 - 代码块、`$…$` / `$$…$$` 公式、shortcode、TikZ 块**原样保留**，代码注释可不译
 - 人名、术语首次出现时可括注原文，如"缓存行（cache line）"
 - **译出的标题一律带英文显式锚点**：`### 循环展开 {#loop-unrolling}`——slug 取自英文原标题（小写、空格转 `-`、去标点）。中文标题会改变 Goldmark 自动锚点，不加则跨章 `#fragment` 链接静默失效；检查脚本第 [7] 步校验全部 fragment
